@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="ProjectGroup4TrainSchedule">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <property name="context-root" value="ProjectGroup4TrainSchedule"/>
+        <property name="java-output-path" value="/ProjectGroup4TrainSchedule/build/classes"/>
+    </wb-module>
+</project-modules>
