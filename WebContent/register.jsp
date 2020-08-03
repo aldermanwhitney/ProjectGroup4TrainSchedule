@@ -10,7 +10,7 @@
 <title>Register</title>
 </head>
 <body>
-
+<br>
 <%--This page allows a user to register by inserting the tuples into the database--%>
 
 
