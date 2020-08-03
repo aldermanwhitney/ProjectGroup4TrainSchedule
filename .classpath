@@ -8,5 +8,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/Users/Whitney/Downloads/mysql-connector-java-5.1.49-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Whitney/Downloads/apache-tomcat-7.0.105-windows-x64/apache-tomcat-7.0.105/lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
