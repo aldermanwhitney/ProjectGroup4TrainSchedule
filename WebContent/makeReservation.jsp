@@ -146,12 +146,12 @@ try {
 			 System.out.println(discount);
 			 String discount2;
 			if (discount.equals("senior")){
-				finalfare = finalfare - finalfare*.15;
-				discount2 = "Senior - 15% Off";
+				finalfare = finalfare - finalfare*.35;
+				discount2 = "Senior - 35% Off";
 			}
 			else if (discount.equals("disabled")){
-				finalfare = finalfare - finalfare*.20;
-				discount2 = "Disabled - 20% Off";
+				finalfare = finalfare - finalfare*.50;
+				discount2 = "Disabled - 50% Off";
 			}
 			else if (discount.equals("child")){
 				finalfare = finalfare - finalfare*.25;
