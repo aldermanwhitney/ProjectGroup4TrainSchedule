@@ -91,6 +91,7 @@ try {
 			"From t1\n" +
 			"Join t2\n" +
 			"On t1.Train_ID=t2.Train_ID\n" +
+		    "and t1.Departure = t2.Departure\n" +
 			"group by t1.Train_ID, t1.Departure);";
 			
 			
@@ -134,26 +135,26 @@ try {
 			
 			//destination field empty, search origins and date only
 			if (!origin.equals("") && destination.equals("")){
-				String stred = "SELECT * FROM t3 where OriginCity ='" + origin + "' and Departure LIKE '"
+				String stred = "SELECT * FROM t5 where OriginCity ='" + origin + "' and Departure LIKE '"
 						+ traveldate + "%' Order by " + sortcommand + " asc;";
 				result = stmt.executeQuery(stred);
 				
 			}
 			//origin field empty, search destinations and date only
 			else if (origin.equals("") && !destination.equals("")){
-				String streo = "SELECT * FROM t3 where DestinationCity ='" + destination + "' and Departure LIKE '"
+				String streo = "SELECT * FROM t5 where DestinationCity ='" + destination + "' and Departure LIKE '"
 						+ traveldate + "%' Order by " + sortcommand + " asc;";
 				result = stmt.executeQuery(streo);
 			}
 			
 			//both empty, search all by date
 			else if ((origin.equals("") && destination.equals(""))){
-				String strbe = "SELECT * FROM t3 where Departure LIKE '" + traveldate + "%' Order by " + sortcommand + " asc;";
+				String strbe = "SELECT * FROM t5 where Departure LIKE '" + traveldate + "%' Order by " + sortcommand + " asc;";
 				result = stmt.executeQuery(strbe);
 			}
 			else{
 			//origin and destination both have fields, search by both and date	
-				String str4 = "SELECT * FROM t3 where OriginCity ='" + origin 
+				String str4 = "SELECT * FROM t5 where OriginCity ='" + origin 
 						+ "' and DestinationCity = '"    + destination +  "' and Departure LIKE '"
 								+ traveldate + "%' Order by " + sortcommand + " asc;";
 				result = stmt.executeQuery(str4);
@@ -253,7 +254,14 @@ try {
 			//make a column
 			out.print("<td>");
 			out.print("<b>");
-				out.print("Stops");
+				out.print("Stop Time");
+				out.print("</b>");
+			out.print("</td>");
+			
+			//make a column
+			out.print("<td>");
+			out.print("<b>");
+				out.print("Stop City");
 				out.print("</b>");
 			out.print("</td>");
 			
@@ -335,10 +343,19 @@ try {
 				out.print(result.getString("Fare"));
 				out.print("</td>");
 				
+				out.print("<td>");
+				out.print(result.getString("Stoptime"));
+				out.print("</td>");
+				
+				out.print("<td>");
+				out.print(result.getString("city"));
+				out.print("</td>");
+				
 				
 				//out.print("<tr>");
 				//make a column
-				out.print("<td>");
+				
+				/* out.print("<td>");
 				
 				while (stopstable.next()) {
 					//make a row
@@ -358,9 +375,11 @@ try {
 				}
 				}
 				//out.print("</tr>");
+				*/
 				//make a column
 			out.print("<td>");	
 			
+				
 			
 				
 				%><input type="radio" name="command" value="<%=TrainID + " " + Departure%>"/><%
