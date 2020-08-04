@@ -149,14 +149,14 @@ try {
 			
 			//destination field empty, search origins and date only
 			if (!origin.equals("") && destination.equals("")){
-				String stred = "SELECT * FROM schedulewithstops where OriginCity ='" + origin + "' and Departure LIKE '"
+				String stred = "SELECT * FROM schedulewithstops where city ='" + origin + "' and Departure LIKE '"
 						+ traveldate + "%' Order by " + sortcommand + " asc;";
 				result = stmt.executeQuery(stred);
 				
 			}
 			//origin field empty, search destinations and date only
 			else if (origin.equals("") && !destination.equals("")){
-				String streo = "SELECT * FROM schedulewithstops where DestinationCity ='" + destination + "' and Departure LIKE '"
+				String streo = "SELECT * FROM schedulewithstops where destcity ='" + destination + "' and Departure LIKE '"
 						+ traveldate + "%' Order by " + sortcommand + " asc;";
 				result = stmt.executeQuery(streo);
 			}
@@ -168,8 +168,8 @@ try {
 			}
 			else{
 			//origin and destination both have fields, search by both and date	
-				String str4 = "SELECT * FROM schedulewithstops where OriginCity ='" + origin 
-						+ "' and DestinationCity = '"    + destination +  "' and Departure LIKE '"
+				String str4 = "SELECT * FROM schedulewithstops where city ='" + origin 
+						+ "' and destcity = '"    + destination +  "' and Departure LIKE '"
 								+ traveldate + "%' Order by " + sortcommand + " asc;";
 				result = stmt.executeQuery(str4);
 			}
@@ -370,7 +370,9 @@ try {
 				out.print("</td>");
 			
 				out.print("<td>");
-				out.print(result.getString("Fare"));
+				String totaltripfare = result.getString("Fare");
+				int thistripfare = Integer.parseInt(totaltripfare) / Integer.parseInt(numStops);
+				out.print(thistripfare);
 				out.print("</td>");
 				
 				out.print("<td>");
