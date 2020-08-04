@@ -38,32 +38,99 @@ Choose a current reservation to cancel it<br>
 
 		String currentdate = year + "-" + monthStr + "-" + dayOfMonthStr;
 	
-	//create temp tables for join
-			String d1 = "Drop View if Exists t1;";
-			String d2 = "Drop View if Exists t2;";
-			String d3 = "Drop View if Exists t3;";
-			String d4 = "Drop View if Exists t6;";
-			
-			String str1 = "CREATE VIEW t1\n" +
-			"AS\n" +
-			"(select t.Train_ID, t.Origin_ID, s.City, s.State, t.TransitLineName, t.Departure, t.Arrival, t.TravelTime, t.fare\n" +
-			"from TrainSchedule t, Station s\n" +
-			"where s.Station_ID=t.Origin_ID);\n";
-			
-			String str2 = "CREATE VIEW t2\n" + 
-			"AS\n" +
-			"(select t.Train_ID, t.Destination_ID, s.City, s.State, t.TransitLineName, t.Departure, t.Arrival, t.TravelTime, t.fare\n" +
-			"from TrainSchedule t, Station s\n" +
-			"where s.Station_ID=t.Destination_ID);";
-
-			String str3 = "CREATE VIEW t3\n" + 
-					"AS\n" +
-			"(Select t1.Train_ID, t1.Origin_ID, t1.City OriginCity, t1.State OriginState, t2.Destination_ID, t2.City DestinationCity, t2.State DestinationState, t1.TransitLineName, t1.Departure, t1.Arrival, t1.TravelTime, t1.fare\n" +
-			"From t1\n" +
-			"Join t2\n" +
-			"On t1.Train_ID=t2.Train_ID\n" +
-			"group by t1.Train_ID, t1.Departure);";
 		
+		//Drop temp views
+		String d1 = "Drop View if Exists t1;";
+		String d2 = "Drop View if Exists t2;";
+		String d3 = "Drop View if Exists t3;";
+		String d4 = "Drop View if Exists t4;";
+		String d5 = "Drop View if Exists t5;";
+		String d6 = "Drop View if Exists schedulewithstops";
+		String d7 = "Drop View if Exists totalnumberofstops";
+		String d8 = "Drop View if Exists final";
+		String d9 = "Drop View if Exists resfinal";
+		
+		
+		String str1 = "CREATE VIEW t1\n" +
+		"AS\n" +
+		"(select t.Train_ID, t.Origin_ID, s.City, s.State, t.TransitLineName, t.Departure, t.Arrival, t.TravelTime, t.fare\n" +
+		"from TrainSchedule t, Station s\n" +
+		"where s.Station_ID=t.Origin_ID);\n";
+		
+		String str2 = "CREATE VIEW t2\n" + 
+		"AS\n" +
+		"(select t.Train_ID, t.Destination_ID, s.City, s.State, t.TransitLineName, t.Departure, t.Arrival, t.TravelTime, t.fare\n" +
+		"from TrainSchedule t, Station s\n" +
+		"where s.Station_ID=t.Destination_ID);";
+
+		String str3 = "CREATE VIEW t3\n" + 
+				"AS\n" +
+		"(Select t1.Train_ID, t1.Origin_ID, t1.City OriginCity, t1.State OriginState, t2.Destination_ID, t2.City DestinationCity, t2.State DestinationState, t1.TransitLineName, t1.Departure, t1.Arrival, t1.TravelTime, t1.fare\n" +
+		"From t1\n" +
+		"Join t2\n" +
+		"On t1.Train_ID=t2.Train_ID\n" +
+	    "and t1.Departure = t2.Departure\n" +
+		"group by t1.Train_ID, t1.Departure);";
+		
+		
+		String str5 = "CREATE VIEW t4\n" + 
+				"AS\n" +
+		"select t.Departure, t.Train_ID, st.Stop_ID, st.StopNumber, st.Stoptime, s.city, s.state\n" + 
+		"from Stops st, Station s, TrainSchedule t\n" + 
+		"where s.Station_ID=st.Stop_ID\n" + 
+		"and st.Departure = t.Departure\n" + 
+		"and st.Train_ID = t.Train_ID";
+		
+		String str6 = "CREATE VIEW t5\n" + 
+				"AS\n" +
+				"(Select t3.*, t4.StopNumber, t4.Stop_ID Stop1_ID, t4.Stoptime, t4.city, t4.state\n" + 
+				"from t3, t4\n" +
+				"where t3.Departure = t4.Departure\n" +
+				"and t3.Train_ID=t4.Train_ID);";
+				
+		String str7 = "SELECT * FROM t5;";
+		
+		String str8 = "CREATE VIEW schedulewithstops\n" + 
+				"AS\n" +
+				"(Select t5.*, t4.city destcity, t4.state deststate, t4.StopNumber stopnum, t4.Stop_ID Stop2_ID, t4.Stoptime deststoptime, t4.StopNumber-t5.StopNumber numstops\n" + 
+				"from t5\n" +
+				"join t4 on t4.Train_ID = t5.Train_ID\n" +
+				"and t4.Departure = t5.Departure\n" +
+				"where t5.Stoptime<t4.Stoptime\n" +
+				"and t5.StopNumber<t4.StopNumber);";
+				
+				String str9 = "SELECT * FROM schedulewithstops;";
+		
+				
+		String str10 = "CREATE VIEW totalnumberofstops\n" + 
+				"AS\n" +
+				"(select t.TransitLineName, t.fare, count(distinct s.Stop_ID) totalnumstops\n" +
+				"from Stops s, TrainSchedule t\n" +
+				"where s.Train_ID = t.Train_ID\n" +
+				"and s.Departure = t.Departure\n" + 
+				"group by t.TransitLineName);";		
+		
+			String str11 = "CREATE VIEW final\n" + 
+					"AS\n" +
+					"(select s.*, n.totalnumstops totaltransitstops\n" +
+						"from numberofstops n, schedulewithstops s\n" + 
+						"where n.TransitLineName=s.TransitLineName);";
+		
+						
+			String str12 = "CREATE VIEW resfinal\n" + 			
+					"AS\n" +
+					"(Select final.*, r.ReservationNumber, r.ResDate, r.username, r.TotalFare, r.OriginStop_ID, r.DestinationStop_ID\n" + 
+					"from final, Reservation r\n" + 
+					"where final.Train_ID = r.Train_ID\n" + 
+					"and final.Departure = r.Departure\n" + 
+                    "and final.Stop1_ID = r.OriginStop_ID\n" + 
+                    "and final.Stop2_ID = r.DestinationStop_ID);"; 
+						
+						
+						
+						
+						
+			/*			
 			String str4 = "CREATE VIEW t6\n" + 
 					"AS\n" +
 					"(Select t3.*, r.ReservationNumber, r.ResDate, r.username, r.TotalFare\n" + 
@@ -71,13 +138,14 @@ Choose a current reservation to cancel it<br>
 					"where t3.Train_ID = r.Train_ID\n" +
 					"and t3.Departure = r.Departure);";
 		
+					*/
 	//		String str5 = "SELECT * FROM t6;";
 	
 	
-	String str6 = "SELECT * FROM t6 where username='" + username + "' and ResDate < '"
+	String str16 = "SELECT * FROM resfinal where username='" + username + "' and ResDate < '"
 			+ currentdate + "';";
 			
-	String str7 = "SELECT * FROM t6 where username='" + username + "' and ResDate >= '"
+	String str17 = "SELECT * FROM resfinal where username='" + username + "' and ResDate >= '"
 					+ currentdate + "';";	
 					
 					
@@ -87,16 +155,27 @@ Choose a current reservation to cancel it<br>
 					stmt.execute(d2);
 					stmt.execute(d3);
 					stmt.execute(d4);
+					stmt.execute(d5);
+					stmt.execute(d6);
+					stmt.execute(d7);
+					stmt.execute(d8);
+					stmt.execute(d9);
 					
 					//create new temporary tables (views)
 					stmt.execute(str1);
 					stmt.execute(str2);
 					stmt.execute(str3);
-					stmt.execute(str4);
+					stmt.execute(str5);
+					stmt.execute(str6);
+					stmt.execute(str8);
+					stmt.execute(str10);
+					stmt.execute(str11);
+					stmt.execute(str12);
+					
 			
 	
 	//Execute Queries	
-	ResultSet currentreservations = stmt.executeQuery(str7);
+	ResultSet currentreservations = stmt.executeQuery(str17);
 	//ResultSet pastreservations = stmt.executeQuery(str6);
 	
 	String resnum;
@@ -322,7 +401,7 @@ Choose a current reservation to cancel it<br>
 
 %>
 <br><br><b><i>Past Reservations</i></b><br>
-<%ResultSet pastreservations = stmt.executeQuery(str6);
+<%ResultSet pastreservations = stmt.executeQuery(str16);
 
 //Make an HTML table to show the results in:
 out.print("<table>");
