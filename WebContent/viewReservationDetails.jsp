@@ -202,14 +202,32 @@ Choose a current reservation to cancel it<br>
 	
 	out.print("<td>");
 	out.print("<b>");
-		out.print("Origin");
+		out.print("Transit Line Origin");
 		out.print("</b>");
 	out.print("</td>");
 	
+	//out.print("<td>");
+	//out.print("<b>");
+		//out.print("Origin State");
+		//out.print("</b>");
+	//out.print("</td>");
+	
+	//make a column
+	//out.print("<td>");
+	//out.print("<b>");
+		//out.print("Destination Station ID");
+		//out.print("</b>");
+	//out.print("</td>");
+	
+//		out.print("<td>");
+//	out.print("<b>");
+		//out.print("Destination City");
+	//	out.print("</b>");
+//	out.print("</td>");
 	
 	out.print("<td>");
 	out.print("<b>");
-		out.print("Destination");
+		out.print("Transit Line Destination");
 		out.print("</b>");
 	out.print("</td>");
 
@@ -221,7 +239,7 @@ Choose a current reservation to cancel it<br>
 		out.print("</b>");
 	out.print("</td>");
 	
-	
+	/*
 	//make a column
 	out.print("<td>");
 	out.print("<b>");
@@ -235,6 +253,7 @@ Choose a current reservation to cancel it<br>
 		out.print("Arrival");
 		out.print("</b>");
 	out.print("</td>");
+	*/
 	
 	//make a column
 	out.print("<td>");
@@ -246,7 +265,36 @@ Choose a current reservation to cancel it<br>
 	//make a column
 	out.print("<td>");
 	out.print("<b>");
-		out.print("Fare");
+		out.print("Fare Paid");
+		out.print("</b>");
+	out.print("</td>");
+	
+	
+	//make a column
+	out.print("<td>");
+	out.print("<b>");
+		out.print("Board Stop");
+		out.print("</b>");
+	out.print("</td>");
+	
+	//make a column
+	out.print("<td>");
+	out.print("<b>");
+		out.print("Board Time");
+		out.print("</b>");
+	out.print("</td>");
+	
+	//make a column
+	out.print("<td>");
+	out.print("<b>");
+		out.print("Disembark Stop");
+		out.print("</b>");
+	out.print("</td>");
+	
+	//make a column
+	out.print("<td>");
+	out.print("<b>");
+		out.print("Disembark Time");
 		out.print("</b>");
 	out.print("</td>");
 	
@@ -318,25 +366,75 @@ Choose a current reservation to cancel it<br>
 		
 		out.print("<td>");
 		out.print(currentreservations.getString("TransitLineName"));
+		String transitline = currentreservations.getString("TransitLineName");
 		out.print("</td>");
 		
+		/*
 		out.print("<td>");
-			out.print(currentreservations.getString("Departure"));
+			out.print(result.getString("Departure"));
 		out.print("</td>");
+		*/
 		
 		String Departure = currentreservations.getString("Departure");
 		String passinfo = TrainID + " "+ Departure;
-		
+		String numStops = currentreservations.getString("numstops");
+		/*
 		out.print("<td>");
-			out.print(currentreservations.getString("Arrival"));
+			out.print(result.getString("Arrival"));
 		out.print("</td>");
-		
+		*/
 		out.print("<td>");
-		out.print(currentreservations.getString("TravelTime"));
-		out.print("</td>");
+		//out.print(result.getString("TravelTime"));
+		
+		String deststoptime = currentreservations.getString("deststoptime");
+		String originstoptime = currentreservations.getString("Stoptime");
+		
+		 String[] stringarr = deststoptime.split(" ", 2); 
+		 String[] stringarr2 = originstoptime.split(" ", 2); 
+		  
+	    String desttime = stringarr[1];
+	    String orgtime = stringarr2[1];
+		
+		 String[] stringarr3 = desttime.split(":", 3); 
+		 String[] stringarr4 = orgtime.split(":", 3); 
+		  
+
+	   int traveltime =  Math.abs(Integer.parseInt(stringarr3[0]) - Integer.parseInt(stringarr4[0]))*60 + (Integer.parseInt(stringarr3[1]) - Integer.parseInt(stringarr4[1]));
+	   out.print(traveltime);
+	    
+	    out.print("</td>");
 	
 		out.print("<td>");
-		out.print(currentreservations.getString("TotalFare"));
+		String totaltripfare = currentreservations.getString("Fare");
+
+		int thistripfare = Integer.parseInt(totaltripfare)* Integer.parseInt(numStops) / Integer.parseInt(currentreservations.getString("totaltransitstops"));
+		double thistripfare2 = Double.parseDouble(totaltripfare)* Double.parseDouble(numStops) / Double.parseDouble(currentreservations.getString("totaltransitstops"));
+		DecimalFormat df = new DecimalFormat("#.###");
+		//out.print(df.format(thistripfare2));
+		out.print("$" + df.format(Double.parseDouble(currentreservations.getString("TotalFare"))));
+		out.print("</td>");
+		
+		out.print("<td>");
+		String city = currentreservations.getString("city");
+		out.print(currentreservations.getString("city"));
+		out.print(", ");
+		out.print(currentreservations.getString("state"));
+		out.print("</td>");
+		
+		out.print("<td>");
+		out.print(currentreservations.getString("Stoptime"));
+		String Stoptime = currentreservations.getString("Stoptime");
+		out.print("</td>");
+		
+		out.print("<td>");
+		out.print(currentreservations.getString("destcity"));
+		out.print(", ");
+		out.print(currentreservations.getString("deststate"));
+		String destcity = currentreservations.getString("destcity");
+		out.print("</td>");
+		
+		out.print("<td>");
+		out.print(currentreservations.getString("deststoptime"));
 		out.print("</td>");
 		
 		out.print("<td>");
