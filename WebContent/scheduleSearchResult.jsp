@@ -70,6 +70,7 @@ try {
 			String d3 = "Drop View if Exists t3;";
 			String d4 = "Drop View if Exists t4;";
 			String d5 = "Drop View if Exists t5;";
+			String d6 = "Drop View if Exists schedulewithstops";
 			
 			
 			
@@ -97,7 +98,7 @@ try {
 			
 			String str5 = "CREATE VIEW t4\n" + 
 					"AS\n" +
-			"select t.Departure, t.Train_ID, st.Stop_ID, st.Stoptime, s.city\n" + 
+			"select t.Departure, t.Train_ID, st.Stop_ID, st.StopNumber, st.Stoptime, s.city, s.state\n" + 
 			"from Stops st, Station s, TrainSchedule t\n" + 
 			"where s.Station_ID=st.Stop_ID\n" + 
 			"and st.Departure = t.Departure\n" + 
@@ -105,12 +106,23 @@ try {
 			
 			String str6 = "CREATE VIEW t5\n" + 
 					"AS\n" +
-					"(Select t3.*, t4.Stoptime, t4.city\n" + 
+					"(Select t3.*, t4.StopNumber, t4.Stoptime, t4.city, t4.state\n" + 
 					"from t3, t4\n" +
 					"where t3.Departure = t4.Departure\n" +
 					"and t3.Train_ID=t4.Train_ID);";
 					
 			String str7 = "SELECT * FROM t5;";
+			
+			String str8 = "CREATE VIEW schedulewithstops\n" + 
+					"AS\n" +
+					"(Select t5.*, t4.city destcity, t4.state deststate, t4.StopNumber stopnum, t4.Stoptime deststoptime, t4.StopNumber-t5.StopNumber numstops\n" + 
+					"from t5\n" +
+					"join t4 on t4.Train_ID = t5.Train_ID\n" +
+					"and t4.Departure = t5.Departure\n" +
+					"where t5.Stoptime<t4.Stoptime\n" +
+					"and t5.StopNumber<t4.StopNumber);";
+					
+					String str9 = "SELECT * FROM schedulewithstops;";
 			
 			//Run the query against the database.
 			
@@ -120,6 +132,7 @@ try {
 			stmt.execute(d3);
 			stmt.execute(d4);
 			stmt.execute(d5);
+			stmt.execute(d6);
 			
 			//create new temporary tables (views)
 			stmt.execute(str1);
@@ -127,6 +140,7 @@ try {
 			stmt.execute(str3);
 			stmt.execute(str5);
 			stmt.execute(str6);
+			stmt.execute(str8);
 			
 			
 			ResultSet result;
@@ -135,26 +149,26 @@ try {
 			
 			//destination field empty, search origins and date only
 			if (!origin.equals("") && destination.equals("")){
-				String stred = "SELECT * FROM t5 where OriginCity ='" + origin + "' and Departure LIKE '"
+				String stred = "SELECT * FROM schedulewithstops where OriginCity ='" + origin + "' and Departure LIKE '"
 						+ traveldate + "%' Order by " + sortcommand + " asc;";
 				result = stmt.executeQuery(stred);
 				
 			}
 			//origin field empty, search destinations and date only
 			else if (origin.equals("") && !destination.equals("")){
-				String streo = "SELECT * FROM t5 where DestinationCity ='" + destination + "' and Departure LIKE '"
+				String streo = "SELECT * FROM schedulewithstops where DestinationCity ='" + destination + "' and Departure LIKE '"
 						+ traveldate + "%' Order by " + sortcommand + " asc;";
 				result = stmt.executeQuery(streo);
 			}
 			
 			//both empty, search all by date
 			else if ((origin.equals("") && destination.equals(""))){
-				String strbe = "SELECT * FROM t5 where Departure LIKE '" + traveldate + "%' Order by " + sortcommand + " asc;";
+				String strbe = "SELECT * FROM schedulewithstops where Departure LIKE '" + traveldate + "%' Order by " + sortcommand + " asc;";
 				result = stmt.executeQuery(strbe);
 			}
 			else{
 			//origin and destination both have fields, search by both and date	
-				String str4 = "SELECT * FROM t5 where OriginCity ='" + origin 
+				String str4 = "SELECT * FROM schedulewithstops where OriginCity ='" + origin 
 						+ "' and DestinationCity = '"    + destination +  "' and Departure LIKE '"
 								+ traveldate + "%' Order by " + sortcommand + " asc;";
 				result = stmt.executeQuery(str4);
@@ -251,17 +265,32 @@ try {
 				out.print("</b>");
 			out.print("</td>");
 			
+			
 			//make a column
 			out.print("<td>");
 			out.print("<b>");
-				out.print("Stop Time");
+				out.print("Board Stop");
 				out.print("</b>");
 			out.print("</td>");
 			
 			//make a column
 			out.print("<td>");
 			out.print("<b>");
-				out.print("Stop City");
+				out.print("Board Time");
+				out.print("</b>");
+			out.print("</td>");
+			
+			//make a column
+			out.print("<td>");
+			out.print("<b>");
+				out.print("Disembark Stop");
+				out.print("</b>");
+			out.print("</td>");
+			
+			//make a column
+			out.print("<td>");
+			out.print("<b>");
+				out.print("Disembark Time");
 				out.print("</b>");
 			out.print("</td>");
 			
@@ -330,6 +359,7 @@ try {
 				
 				String Departure = result.getString("Departure");
 				String passinfo = TrainID + " "+ Departure;
+				String numStops = result.getString("numstops");
 				
 				out.print("<td>");
 					out.print(result.getString("Arrival"));
@@ -349,6 +379,18 @@ try {
 				
 				out.print("<td>");
 				out.print(result.getString("city"));
+				out.print(", ");
+				out.print(result.getString("state"));
+				out.print("</td>");
+				
+				out.print("<td>");
+				out.print(result.getString("deststoptime"));
+				out.print("</td>");
+				
+				out.print("<td>");
+				out.print(result.getString("destcity"));
+				out.print(", ");
+				out.print(result.getString("deststate"));
 				out.print("</td>");
 				
 				
@@ -382,7 +424,9 @@ try {
 				
 			
 				
-				%><input type="radio" name="command" value="<%=TrainID + " " + Departure%>"/><%
+				%><input type="radio" name="command" value="<%=TrainID + "," + numStops + "," + Departure%>"/>
+				
+		<%
 				out.print("</td>");
 				
 				out.print("</td>");

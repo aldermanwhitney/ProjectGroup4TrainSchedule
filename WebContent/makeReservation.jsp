@@ -23,12 +23,26 @@ try {
 	//Get the database connection
 	ApplicationDB db = new ApplicationDB();	
 	Connection con = db.getConnection();
-	
+
 	
 	String trainiddeparture = request.getParameter("command");
-	//out.println(trainiddeparture);
-	String trainid = trainiddeparture.substring(0,4);
-	String departure = trainiddeparture.substring(4);
+	//String numstops = request.getParameter("numstops");
+	out.println(trainiddeparture);
+	
+	 String[] stringarr = trainiddeparture.split(",", 3); 
+	  
+      for (String a : stringarr) {
+          System.out.println(a); 
+      }
+	
+    String trainid = stringarr[0];
+    String numstops = stringarr[1];
+    String departure = stringarr[2];
+    
+    out.println(trainid + numstops + departure);
+	
+	//String trainid = trainiddeparture.substring(0,4);
+	//String departure = trainiddeparture.substring(4);
 	//out.println("\nTrain ID:" + trainid);
 	//out.println("\nDeparture Time:" +departure);
 	
@@ -139,31 +153,36 @@ try {
 				trip = "One Way";
 			}
 			
-			
+			int numfare = (Integer.parseInt(fare)/Integer.parseInt(numstops));
 			
 			
 			 String discount = request.getParameter("discount");
 			 System.out.println(discount);
 			 String discount2;
 			if (discount.equals("senior")){
-				finalfare = finalfare - finalfare*.35;
+				finalfare = numfare - numfare*.35;
 				discount2 = "Senior - 35% Off";
 			}
 			else if (discount.equals("disabled")){
-				finalfare = finalfare - finalfare*.50;
+				finalfare = numfare - numfare*.50;
 				discount2 = "Disabled - 50% Off";
 			}
 			else if (discount.equals("child")){
-				finalfare = finalfare - finalfare*.25;
+				finalfare = numfare - numfare*.25;
 				discount2 = "Child - 25% Off";
 			}
 			else{
 				discount2 = "Not Applicable";
 			}
 			
+			
+			
+			
 			%>
 			<br><b><i>Payment Details</i></b><br>
-			<b>Original Fare:</b> <%out.print(fare);%><br>
+			<b>Entire Trip Fare:</b> <%out.print(fare);%><br>
+			<b>Number of Stops:</b> <%out.print(numstops);%><br>
+			<b>Your Fare:</b> <%out.print(numfare);%><br>
 			<b>Trip: </b> <%out.print(trip);%><br>
 			<b>Discount: </b> <%out.print(discount2);%><br>
 			<b>Final Fare:</b> <%out.print(df.format(finalfare));%><br>
