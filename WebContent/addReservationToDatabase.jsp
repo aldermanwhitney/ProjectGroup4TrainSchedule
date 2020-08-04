@@ -17,7 +17,14 @@
 	String trainid = request.getParameter("trainid");
 	String departure = request.getParameter("departure");
 	String username = request.getParameter("username");
-	String finalfare = request.getParameter("finalfare");%>
+	String finalfare = request.getParameter("finalfare");
+	
+	String Stop1_ID = request.getParameter("Stop1_ID");
+	String Stop2_ID = request.getParameter("Stop2_ID");
+	//out.println("Stop1 ID: "+ Stop1_ID);
+	//out.println("Stop2 ID: "+ Stop2_ID);
+	
+	%>
 
 
 <%	
@@ -83,8 +90,8 @@ String str3 = "INSERT into Reservation values(" + reservationnum + ", '" + curre
 
 		
 		//Make an insert statement for the Reservation sql table:
-		String insert = "INSERT INTO Reservation(ReservationNumber, ResDate, username, Train_ID, Departure, TotalFare)"
-				+ "VALUES (?, ?, ?, ?, ?, ?)";
+		String insert = "INSERT INTO Reservation(ReservationNumber, ResDate, username, Train_ID, Departure, TotalFare, OriginStop_ID, DestinationStop_ID)"
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		PreparedStatement ps = con.prepareStatement(insert);
 		
@@ -95,6 +102,8 @@ String str3 = "INSERT into Reservation values(" + reservationnum + ", '" + curre
 		ps.setString(4, trainid);
 		ps.setString(5, departure);
 		ps.setString(6, finalfare);
+		ps.setString(7, Stop1_ID);
+		ps.setString(8, Stop2_ID);
 		
 		//Run the query against the DB
 		ps.executeUpdate();

@@ -132,7 +132,7 @@ try {
 			
 			String str6 = "CREATE VIEW t5\n" + 
 					"AS\n" +
-					"(Select t3.*, t4.StopNumber, t4.Stoptime, t4.city, t4.state\n" + 
+					"(Select t3.*, t4.StopNumber, t4.Stop_ID Stop1_ID, t4.Stoptime, t4.city, t4.state\n" + 
 					"from t3, t4\n" +
 					"where t3.Departure = t4.Departure\n" +
 					"and t3.Train_ID=t4.Train_ID);";
@@ -141,7 +141,7 @@ try {
 			
 			String str8 = "CREATE VIEW schedulewithstops\n" + 
 					"AS\n" +
-					"(Select t5.*, t4.city destcity, t4.state deststate, t4.StopNumber stopnum, t4.Stoptime deststoptime, t4.StopNumber-t5.StopNumber numstops\n" + 
+					"(Select t5.*, t4.city destcity, t4.state deststate, t4.Stop_ID Stop2_ID, t4.StopNumber stopnum, t4.Stoptime deststoptime, t4.StopNumber-t5.StopNumber numstops\n" + 
 					"from t5\n" +
 					"join t4 on t4.Train_ID = t5.Train_ID\n" +
 					"and t4.Departure = t5.Departure\n" +
@@ -372,7 +372,8 @@ try {
 			<br>
 			<b><i>Final Fare:</i></b> <%out.print("$" + df2.format(finalfare));%><br><br>
 			<%
-			
+			String Stop1_ID = routeinfo.getString("Stop1_ID");
+			String Stop2_ID = routeinfo.getString("Stop2_ID");
 			
 			%>
 			<form method="post" action="addReservationToDatabase.jsp">
@@ -381,6 +382,11 @@ try {
 			<input type="hidden" id="reservationinfo" name="departure" value="<%=departure%>"/>
 			<input type="hidden" id="reservationinfo" name="username" value="<%=username%>"/>
 			<input type="hidden" id="reservationinfo" name="finalfare" value="<%=finalfare%>"/>
+			<input type="hidden" id="reservationinfo" name="Stop1_ID" value="<%=Stop1_ID%>"/>
+			<input type="hidden" id="reservationinfo" name="Stop2_ID" value="<%=Stop2_ID%>"/>
+			
+			
+			
 			</form>
 
 			<form method="post" action="customer.jsp">
