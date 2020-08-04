@@ -14,8 +14,8 @@ You are not logged in<br/>
 <a href="index.jsp">Please Login</a>
 <%} else {
 %>
-Welcome <%=session.getAttribute("user")%> 
-<br><b>You have Customer Rep privileges</b><br><br>
+<b>Welcome <%=session.getAttribute("user")%> </b>
+<br><i>You have Customer Rep privileges</i><br><br>
 <a href='logout.jsp'>Log out</a>
 <%
     }
