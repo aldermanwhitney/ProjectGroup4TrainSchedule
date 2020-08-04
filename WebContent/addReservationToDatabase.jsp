@@ -58,7 +58,7 @@ int reservationnum = 1;
 
    //increment to find a number thats not in the table to reservation number assigned is unique	
 	while (resnums.next()) {
-			reservationnum++; 
+			reservationnum+=10; 
 	}
 
 
