@@ -15,10 +15,22 @@ You are not logged in<br/>
 <%} else {
 %>
 <b>Welcome <%=session.getAttribute("user")%> </b>
-<br><i>You have Customer Rep privileges</i><br><br>
-<a href='logout.jsp'>Log out</a>
+<br><i>You have Customer Rep privileges</i><br>
+
 <%
     }
 %>
+
+
+
+
+
+
+
+
+
+
+<a href='logout.jsp'>Log out</a>
+
 </body>
 </html>
