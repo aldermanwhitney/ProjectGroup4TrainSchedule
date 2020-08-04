@@ -21,6 +21,13 @@ You are not logged in<br/>
     }
 %>
 
+<br>
+<form method ="post" action ="viewEditTrainSchedules.jsp">
+<input type = "submit" value ="View Train Schedules">
+<input type = "hidden" id ="hiddeninfo" name ="username" value ="<%=session.getAttribute("user")%>"/>
+</form>
+<br>
+<br>
 
 
 
@@ -29,7 +36,7 @@ You are not logged in<br/>
 
 
 
-
+<br>
 <a href='logout.jsp'>Log out</a>
 
 </body>
