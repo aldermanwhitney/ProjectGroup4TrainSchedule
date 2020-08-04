@@ -414,10 +414,14 @@ try {
 				String totaltripfare = result.getString("Fare");
 
 				int thistripfare = Integer.parseInt(totaltripfare)* Integer.parseInt(numStops) / Integer.parseInt(result.getString("totaltransitstops"));
-				out.print(thistripfare);
+				double thistripfare2 = Double.parseDouble(totaltripfare)* Double.parseDouble(numStops) / Double.parseDouble(result.getString("totaltransitstops"));
+				DecimalFormat df = new DecimalFormat("#.###");
+				//out.print(df.format(thistripfare2));
+				out.print("$" + df.format(thistripfare2));
 				out.print("</td>");
 				
 				out.print("<td>");
+				String city = result.getString("city");
 				out.print(result.getString("city"));
 				out.print(", ");
 				out.print(result.getString("state"));
@@ -425,12 +429,14 @@ try {
 				
 				out.print("<td>");
 				out.print(result.getString("Stoptime"));
+				String Stoptime = result.getString("Stoptime");
 				out.print("</td>");
 				
 				out.print("<td>");
 				out.print(result.getString("destcity"));
 				out.print(", ");
 				out.print(result.getString("deststate"));
+				String destcity = result.getString("destcity");
 				out.print("</td>");
 				
 				out.print("<td>");
@@ -469,7 +475,8 @@ try {
 				
 			
 				
-				%><input type="radio" name="command" value="<%=TrainID + "," + numStops + "," + Departure%>"/>
+				%><input type="radio" name="command" value="<%=TrainID + "," + Departure + "," 
+				+ destcity + "," + deststoptime + "," + city + "," + Stoptime%>"/>
 				
 		<%
 				out.print("</td>");
@@ -535,36 +542,7 @@ try {
 	<br>	
 	<input type="submit" value="Reserve"></form>
 	<br><br><br><br>	
-	<form method="post" action="customer.jsp"> <%--This button being clicked sends user to scheduleSearch.jsp--%>
-	<b>Book A Reservation</b>
-	<br>
-	<table>
-	<tr>    
-	<td>Train ID:</td><td><input type="text" name="origin"></td> <%--Text fields, "origin", "destination", "traveldate" etc are sent to next page (scheduleSearchResult.jsp)--%>
-	</tr>
-	<tr>
-	<td>Departure:</td><td><input type="text" name="destination"></td>
-	</tr>
-	<tr>    
-	<td>Departure:</td><td><input type="date" name="traveldate" required pattern="\d{4}-\d{2}-\d{2} \d{2}:\d{2}:d{2}:d{1}" title="YYYY-MM-DD HH:MM:ss.s" value="2020-08-06 10:00:00.0"
-       min="2020-08-06" max="2025-12-31">
-    <span class="validity"></span></td>
-	</tr>
-	<tr>    
-	<td>	
-</td>
-	</tr>
-	</table>
-	<br>
-	<i>Book:</i>
-	<br>
-	 <input type="radio" name="command" value="Arrival"/>Round Trip
-	 <input type="radio" name="command" value="Departure"/>One Way
-	 <input type="radio" name="command" value="Fare"/>Fare
-	 <br>
-	 <br>
-	<input type="submit" value="Search">
-	</form>
+
 
 
 
