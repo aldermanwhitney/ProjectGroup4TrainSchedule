@@ -259,7 +259,7 @@ try {
 				out.print("</b>");
 			out.print("</td>");
 			
-			
+			/*
 			//make a column
 			out.print("<td>");
 			out.print("<b>");
@@ -273,6 +273,7 @@ try {
 				out.print("Arrival");
 				out.print("</b>");
 			out.print("</td>");
+			*/
 			
 			//make a column
 			out.print("<td>");
@@ -377,18 +378,20 @@ try {
 				String transitline = result.getString("TransitLineName");
 				out.print("</td>");
 				
+				/*
 				out.print("<td>");
 					out.print(result.getString("Departure"));
 				out.print("</td>");
+				*/
 				
 				String Departure = result.getString("Departure");
 				String passinfo = TrainID + " "+ Departure;
 				String numStops = result.getString("numstops");
-				
+				/*
 				out.print("<td>");
 					out.print(result.getString("Arrival"));
 				out.print("</td>");
-				
+				*/
 				out.print("<td>");
 				//out.print(result.getString("TravelTime"));
 				
