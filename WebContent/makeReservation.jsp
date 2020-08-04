@@ -65,10 +65,21 @@ try {
 			String lastname = userinfo.getString("lastname");
 			String email = userinfo.getString("email");
 			
+			//get current date in correct format for DB
+			Calendar now = Calendar.getInstance();
+			int dayOfMonth = now.get(Calendar.DAY_OF_MONTH);
+			String dayOfMonthStr = ((dayOfMonth < 10) ? "0" : "") + dayOfMonth;
+			int month = now.get(Calendar.MONTH) + 1;
+			String monthStr = ((month < 10) ? "0" : "") + month;
+			int year = now.get(Calendar.YEAR);
+			System.out.print(dayOfMonth+"/"+month+"/"+year);
+
+			String currentdate = year + "-" + monthStr + "-" + dayOfMonthStr;
+			
 			
 			//Display User Details
-			%>
-			<br>
+			%><br>Reservation Date: <%out.print(currentdate);%><br>
+			<br><i>Account Information</i><br>
 			<b>First Name:</b> <%out.print(firstname);%><br>
 			<b>Last Name:</b> <%out.print(lastname);%><br>
 			<b>Email:</b> <%out.print(email);%><br>
@@ -84,6 +95,7 @@ try {
 			String d6 = "Drop View if Exists schedulewithstops";
 			String d7 = "Drop View if Exists totalnumberofstops";
 			String d8 = "Drop View if Exists final";
+			String d9 = "Drop View if Exists btwnstops";
 			
 			
 			
@@ -166,6 +178,7 @@ try {
 			stmt.execute(d7);
 			stmt.execute(d8);
 			
+			
 			//create new temporary tables (views)
 			stmt.execute(str1);
 			stmt.execute(str2);
@@ -205,6 +218,22 @@ try {
 			
 			String fare = routeinfo.getString("Fare");
 			*/
+			//travel time
+				String deststoptime2 = routeinfo.getString("deststoptime");
+				String originstoptime2 = routeinfo.getString("Stoptime");
+				
+				 String[] stringarr5 = deststoptime2.split(" ", 2); 
+				 String[] stringarr6 = originstoptime2.split(" ", 2); 
+				  
+			    String desttime = stringarr5[1];
+			    String orgtime = stringarr6[1];
+				
+				 String[] stringarr7 = desttime.split(":", 3); 
+				 String[] stringarr8 = orgtime.split(":", 3); 
+				  
+
+			   int traveltime =  Math.abs(Integer.parseInt(stringarr7[0]) - Integer.parseInt(stringarr8[0]))*60 + (Integer.parseInt(stringarr7[1]) - Integer.parseInt(stringarr8[1]));
+			
 			
 			//stops info
 			String departure2 = routeinfo.getString("Stoptime");
@@ -214,6 +243,9 @@ try {
 			String arrival = routeinfo.getString("deststoptime");
 			String destinationcity = routeinfo.getString("destcity");
 			String destinationstate = routeinfo.getString("deststate");
+			
+			String StopNumber = routeinfo.getString("StopNumber");
+			String stopnum = routeinfo.getString("stopnum");
 			
 			String fare = routeinfo.getString("Fare");
 			
@@ -226,34 +258,67 @@ try {
 			  //  System.out.println(df.format(d));
 			
 			//Display Route Details
+			//between stops
+			String betweenstops = "CREATE VIEW btwnstops\n" + 
+					"AS\n" +
+				"select distinct city\n" +
+				"from final\n" +
+ 				"where Train_ID = '" + trainid + "'\n" +
+				"and Departure = '" + departure + "'\n" +
+				"and StopNumber > '" + StopNumber + "'\n" +
+				"and stopnum <'" + stopnum + "'\n\n"
+				+ "union\n\n" +
+				"select distinct destcity\n" +
+				"from final\n" +
+ 				"where Train_ID = '" + trainid + "'\n" +
+				"and Departure = '" + departure + "'\n" +
+				"and StopNumber > '" + StopNumber + "'\n" +
+				"and stopnum <'" + stopnum + "';";
+
+		String x = "SELECT * FROM btwnstops;";
+				Statement stmt2 = con.createStatement();
+				stmt2.execute(d9);
+				stmt2.execute(betweenstops);
+				ResultSet interimstops = stmt2.executeQuery(x);
+			
+				
+			
 			%>
-			<br>
+			<br><i>Route Details</i><br>
 			<b>Origin:</b> <%out.print(origincity + ", " + originstate);%><br>
 			<b>Destination:</b> <%out.print(destinationcity + ", " + destinationstate);%><br>
 			<b>Departure:</b> <%out.print(departure2);%><br>
 			<b>Arrival:</b> <%out.print(arrival);%><br>
-
+			<b>Travel Time:</b><%out.print(traveltime + " minutes");%><br>
+			<b>Interim Stops:</b><%while (interimstops.next()){
+					out.print(interimstops.getString("city") + ", ");
+				}%>
+			<br>
+			<br>
 
 			<%
+			
+			String totaltripfare = routeinfo.getString("Fare");
+
+			int thistripfare = Integer.parseInt(totaltripfare)* Integer.parseInt(routeinfo.getString("numStops")) / Integer.parseInt(routeinfo.getString("totaltransitstops"));
+			double numfare = Double.parseDouble(totaltripfare)* Double.parseDouble(routeinfo.getString("numStops")) / Double.parseDouble(routeinfo.getString("totaltransitstops"));
+			DecimalFormat df2 = new DecimalFormat("#.##");
 			
 			
 			//Round Trip or One Way
 			String trip = request.getParameter("trip");
 			if (trip.equals("roundtrip")){
-				trip = "Round Trip (Fare x 2)";
-				finalfare *= 2;
+				trip = "Round Trip: " + "$" + df2.format(numfare) + " x 2 = $" + df2.format(numfare*2);
+				finalfare = numfare * 2;
 			}
 			else{
 				trip = "One Way";
+				finalfare = numfare;
 			}
 			
 			//int numfare = (Integer.parseInt(fare)/Integer.parseInt(numstops));
 			
-				String totaltripfare = routeinfo.getString("Fare");
-
-				int thistripfare = Integer.parseInt(totaltripfare)* Integer.parseInt(routeinfo.getString("numStops")) / Integer.parseInt(routeinfo.getString("totaltransitstops"));
-				double numfare = Double.parseDouble(totaltripfare)* Double.parseDouble(routeinfo.getString("numStops")) / Double.parseDouble(routeinfo.getString("totaltransitstops"));
-				DecimalFormat df2 = new DecimalFormat("#.##");
+				
 				//out.print(df.format(thistripfare2));
 				
 			
@@ -281,19 +346,31 @@ try {
 			
 			
 			
-			%><br>
+			%><i>Transit Line Details</i><br>
 			<b>Transit Line:</b> <%out.print(routeinfo.getString("TransitLineName"));%><br>
-			<b>Transit Line Total Fare:</b> <%out.print(df2.format(Double.parseDouble(routeinfo.getString("fare"))));%><br>
-			<b>Number of Transit Stops:</b> <%out.print(Double.parseDouble(routeinfo.getString("totaltransitstops")));%><br>
-			<b>Price per Stop</b> <%out.print (df2.format(Double.parseDouble(routeinfo.getString("fare")) / Double.parseDouble(routeinfo.getString("totaltransitstops"))));%><br>
+			<b>Transit Line Total Fare:</b> <%out.print("$" + df2.format(Double.parseDouble(routeinfo.getString("fare"))));%><br>
+			<b>Train ID:</b><%out.print(trainid);%><br>
+			<b>Number of Transit Stops:</b> <%out.print(Integer.parseInt(routeinfo.getString("totaltransitstops")));%><br>
+			<b>Price per Stop:</b><%out.print("$" + df2.format(Double.parseDouble(routeinfo.getString("fare"))));%>
+			<%out.print(" / ");%> 
+			<%out.print(Integer.parseInt(routeinfo.getString("totaltransitstops")));%>
+			<%out.print(" = ");%>
+			<%out.print ("$" + (df2.format(Double.parseDouble(routeinfo.getString("fare")) / Double.parseDouble(routeinfo.getString("totaltransitstops")))));%><br>
 			<br>
 			
-			<b><i>Payment Details</i></b><br>
+			<i>Payment Details</i><br>
 			<b>Number of Stops:</b> <%out.print(routeinfo.getString("numStops"));%><br>
-			<b>Your Fare:</b> <%out.print("$" + df2.format(numfare));%><br>
+			<b>Your Fare:</b> <%out.print(routeinfo.getString("numStops"));%>
+			<%out.print(" x ");%>
+			<%out.print ("$" + (df2.format(Double.parseDouble(routeinfo.getString("fare")) / Double.parseDouble(routeinfo.getString("totaltransitstops")))));%>
+			<%out.print(" = ");%>
+			<%out.print("$" + df2.format(numfare));%>
+			
+			<br>
 			<b>Trip: </b> <%out.print((trip));%><br>
 			<b>Discount: </b> <%out.print(discount2);%><br>
-			<b>Final Fare:</b> <%out.print(df2.format(finalfare));%><br><br>
+			<br>
+			<b><i>Final Fare:</i></b> <%out.print("$" + df2.format(finalfare));%><br><br>
 			<%
 			
 			
