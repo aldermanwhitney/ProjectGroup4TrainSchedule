@@ -71,6 +71,9 @@ try {
 			String d4 = "Drop View if Exists t4;";
 			String d5 = "Drop View if Exists t5;";
 			String d6 = "Drop View if Exists schedulewithstops";
+			String d7 = "Drop View if Exists totalnumberofstops";
+			String d8 = "Drop View if Exists final";
+			
 			
 			
 			
@@ -124,7 +127,23 @@ try {
 					
 					String str9 = "SELECT * FROM schedulewithstops;";
 			
-			//Run the query against the database.
+					
+			String str10 = "CREATE VIEW totalnumberofstops\n" + 
+					"AS\n" +
+					"(select t.TransitLineName, t.fare, count(distinct s.Stop_ID) totalnumstops\n" +
+					"from Stops s, TrainSchedule t\n" +
+					"where s.Train_ID = t.Train_ID\n" +
+					"and s.Departure = t.Departure\n" + 
+					"group by t.TransitLineName);";		
+			
+				String str11 = "CREATE VIEW final\n" + 
+						"AS\n" +
+						"(select s.*, n.totalnumstops totaltransitstops\n" +
+							"from numberofstops n, schedulewithstops s\n" + 
+							"where n.TransitLineName=s.TransitLineName);";
+				
+				String str12 = "SELECT * FROM final;";
+					//Run the query against the database.
 			
 			//drop any existing views
 			stmt.execute(d1);
@@ -133,6 +152,8 @@ try {
 			stmt.execute(d4);
 			stmt.execute(d5);
 			stmt.execute(d6);
+			stmt.execute(d7);
+			stmt.execute(d8);
 			
 			//create new temporary tables (views)
 			stmt.execute(str1);
@@ -141,6 +162,8 @@ try {
 			stmt.execute(str5);
 			stmt.execute(str6);
 			stmt.execute(str8);
+			stmt.execute(str10);
+			stmt.execute(str11);
 			
 			
 			ResultSet result;
@@ -149,26 +172,26 @@ try {
 			
 			//destination field empty, search origins and date only
 			if (!origin.equals("") && destination.equals("")){
-				String stred = "SELECT * FROM schedulewithstops where city ='" + origin + "' and Departure LIKE '"
+				String stred = "SELECT * FROM final where city ='" + origin + "' and Departure LIKE '"
 						+ traveldate + "%' Order by " + sortcommand + " asc;";
 				result = stmt.executeQuery(stred);
 				
 			}
 			//origin field empty, search destinations and date only
 			else if (origin.equals("") && !destination.equals("")){
-				String streo = "SELECT * FROM schedulewithstops where destcity ='" + destination + "' and Departure LIKE '"
+				String streo = "SELECT * FROM final where destcity ='" + destination + "' and Departure LIKE '"
 						+ traveldate + "%' Order by " + sortcommand + " asc;";
 				result = stmt.executeQuery(streo);
 			}
 			
 			//both empty, search all by date
 			else if ((origin.equals("") && destination.equals(""))){
-				String strbe = "SELECT * FROM schedulewithstops where Departure LIKE '" + traveldate + "%' Order by " + sortcommand + " asc;";
+				String strbe = "SELECT * FROM final where Departure LIKE '" + traveldate + "%' Order by " + sortcommand + " asc;";
 				result = stmt.executeQuery(strbe);
 			}
 			else{
 			//origin and destination both have fields, search by both and date	
-				String str4 = "SELECT * FROM schedulewithstops where city ='" + origin 
+				String str4 = "SELECT * FROM final where city ='" + origin 
 						+ "' and destcity = '"    + destination +  "' and Departure LIKE '"
 								+ traveldate + "%' Order by " + sortcommand + " asc;";
 				result = stmt.executeQuery(str4);
@@ -199,7 +222,7 @@ try {
 			
 			out.print("<td>");
 			out.print("<b>");
-				out.print("Origin");
+				out.print("Transit Line Origin");
 				out.print("</b>");
 			out.print("</td>");
 			
@@ -224,7 +247,7 @@ try {
 			
 			out.print("<td>");
 			out.print("<b>");
-				out.print("Destination");
+				out.print("Transit Line Destination");
 				out.print("</b>");
 			out.print("</td>");
 	
@@ -351,6 +374,7 @@ try {
 				
 				out.print("<td>");
 				out.print(result.getString("TransitLineName"));
+				String transitline = result.getString("TransitLineName");
 				out.print("</td>");
 				
 				out.print("<td>");
@@ -366,17 +390,31 @@ try {
 				out.print("</td>");
 				
 				out.print("<td>");
-				out.print(result.getString("TravelTime"));
-				out.print("</td>");
+				//out.print(result.getString("TravelTime"));
+				
+				String deststoptime = result.getString("deststoptime");
+				String originstoptime = result.getString("Stoptime");
+				
+				 String[] stringarr = deststoptime.split(" ", 2); 
+				 String[] stringarr2 = originstoptime.split(" ", 2); 
+				  
+			    String desttime = stringarr[1];
+			    String orgtime = stringarr2[1];
+				
+				 String[] stringarr3 = desttime.split(":", 3); 
+				 String[] stringarr4 = orgtime.split(":", 3); 
+				  
+
+			   int traveltime =  Math.abs(Integer.parseInt(stringarr3[0]) - Integer.parseInt(stringarr4[0]))*60 + (Integer.parseInt(stringarr3[1]) - Integer.parseInt(stringarr4[1]));
+			   out.print(traveltime);
+			    
+			    out.print("</td>");
 			
 				out.print("<td>");
 				String totaltripfare = result.getString("Fare");
-				int thistripfare = Integer.parseInt(totaltripfare) / Integer.parseInt(numStops);
+
+				int thistripfare = Integer.parseInt(totaltripfare)* Integer.parseInt(numStops) / Integer.parseInt(result.getString("totaltransitstops"));
 				out.print(thistripfare);
-				out.print("</td>");
-				
-				out.print("<td>");
-				out.print(result.getString("Stoptime"));
 				out.print("</td>");
 				
 				out.print("<td>");
@@ -386,7 +424,7 @@ try {
 				out.print("</td>");
 				
 				out.print("<td>");
-				out.print(result.getString("deststoptime"));
+				out.print(result.getString("Stoptime"));
 				out.print("</td>");
 				
 				out.print("<td>");
@@ -394,6 +432,11 @@ try {
 				out.print(", ");
 				out.print(result.getString("deststate"));
 				out.print("</td>");
+				
+				out.print("<td>");
+				out.print(result.getString("deststoptime"));
+				out.print("</td>");
+				
 				
 				
 				//out.print("<tr>");

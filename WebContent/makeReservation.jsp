@@ -100,7 +100,7 @@ try {
 			
 			String str5 = "SELECT * FROM t3 where Train_ID = '" + trainid + "' and Departure = '" + departure + "'";
 			
-			
+			out.println("103");
 			//drop any existing views
 			stmt.execute(d1);
 			stmt.execute(d2);
@@ -110,6 +110,8 @@ try {
 			stmt.execute(str2);
 			stmt.execute(str3);
 			stmt.execute(str4);
+			
+			out.println("114");
 			
 			ResultSet routeinfo = stmt.executeQuery(str5);
 			routeinfo.next();
@@ -143,6 +145,7 @@ try {
 
 			<%
 			
+			out.println("148");
 			//Round Trip or One Way
 			String trip = request.getParameter("trip");
 			if (trip.equals("roundtrip")){
