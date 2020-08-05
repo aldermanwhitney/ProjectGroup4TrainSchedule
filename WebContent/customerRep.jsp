@@ -15,29 +15,23 @@ You are not logged in<br/>
 <%} else {
 %>
 <b>Welcome <%=session.getAttribute("user")%> </b>
-<br><i>You have Customer Rep privileges</i><br>
-
+<a href='logout.jsp'>Log out</a>
+<br>
+<i>You have Customer Rep privileges</i>
 <%
     }
 %>
 
-<br>
+
+<h1>Add New Train Schedule</h1>
+
+
 <form method ="post" action ="viewEditTrainSchedules.jsp">
 <input type = "submit" value ="View Train Schedules">
 <input type = "hidden" id ="hiddeninfo" name ="username" value ="<%=session.getAttribute("user")%>"/>
 </form>
-<br>
-<br>
 
 
-
-
-
-
-
-
-<br>
-<a href='logout.jsp'>Log out</a>
 
 </body>
 </html>
