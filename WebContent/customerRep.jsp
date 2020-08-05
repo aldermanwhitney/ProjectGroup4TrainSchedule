@@ -23,13 +23,14 @@ You are not logged in<br/>
 %>
 
 
-<h1>Add New Train Schedule</h1>
+<h1>Add New Train Schedule</h1> <%-- add forms to add new train schedule here --%>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-
-<form method ="post" action ="viewEditTrainSchedules.jsp">
-<input type = "submit" value ="View Train Schedules">
-<input type = "hidden" id ="hiddeninfo" name ="username" value ="<%=session.getAttribute("user")%>"/>
-</form>
+<a href='viewEditTrainSchedules.jsp'>View Train Schedules</a>
 
 
 

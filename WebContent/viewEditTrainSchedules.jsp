@@ -12,6 +12,13 @@
 </head>
 <body>
 <a href='customerRep.jsp'>Add New Train Schedule</a> 
-<h1>Train Schedules List</h1>
+<h1>Train Schedules List</h1> <%-- add table of train schedules here --%>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 </body>
 </html>
