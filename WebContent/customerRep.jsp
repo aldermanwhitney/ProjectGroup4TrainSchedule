@@ -22,7 +22,7 @@ You are not logged in<br/>
 %>
 
 <br>
-<form method ="post" action ="viewEditTrainSchedules.jsp">
+<form method ="post" action ="viewEditTrainSchedules.jsp"> <%--need to make viewEditTrainSchedules.jsp--%>
 <input type = "submit" value ="View Train Schedules">
 <input type = "hidden" id ="hiddeninfo" name ="username" value ="<%=session.getAttribute("user")%>"/>
 </form>
