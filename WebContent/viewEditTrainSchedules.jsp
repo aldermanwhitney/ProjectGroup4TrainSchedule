@@ -11,6 +11,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-Train Schedules to edit
+<a href='addTrainSchedule.jsp'>Add New Train Schedule</a> <%-- need to add 'addTrainSchedule.jsp' page --%>
+<h1>Train Schedules List</h1>
 </body>
 </html>
