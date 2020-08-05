@@ -8,7 +8,11 @@
 </head>
 <body>
 
-make a forum page for customers and customer reps to answer questions.
-
+<a href='customerRep.jsp'>Add New Train Schedule</a> 
+<br>
+<h1>Forum</h1>
+<h3>A page to for customers to ask questions they may have.</h3>
+add a forum page for customers and customer reps to answer questions.
+<%-- add forum here --%>
 </body>
 </html>

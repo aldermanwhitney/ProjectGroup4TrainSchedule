@@ -19,6 +19,7 @@
 <h1>Train Schedules List</h1> 
 
 <%-- add table of train schedules here --%>
+add table here
 
 <br>
 <br>
