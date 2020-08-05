@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,6 +27,9 @@ You are not logged in<br/>
 
 
 <h1>Add New Train Schedule</h1> <%-- add forms to add new train schedule here --%>
+
+
+
 <br>
 <br>
 <br>
