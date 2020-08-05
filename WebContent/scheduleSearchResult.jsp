@@ -73,6 +73,7 @@ try {
 			String d6 = "Drop View if Exists schedulewithstops";
 			String d7 = "Drop View if Exists totalnumberofstops";
 			String d8 = "Drop View if Exists final";
+			String d9 = "Drop View if Exists final2";
 			
 			
 			
@@ -143,6 +144,11 @@ try {
 							"where n.TransitLineName=s.TransitLineName);";
 				
 				String str12 = "SELECT * FROM final;";
+				
+				String str13 =  "CREATE VIEW final2\n" + 			
+						"AS\n" +
+	            		"(Select final.*, final.numstops*final.fare/final.totaltransitstops tf\n" +
+						"from final);"; 
 					//Run the query against the database.
 			
 			//drop any existing views
@@ -154,6 +160,7 @@ try {
 			stmt.execute(d6);
 			stmt.execute(d7);
 			stmt.execute(d8);
+			stmt.execute(d9);
 			
 			//create new temporary tables (views)
 			stmt.execute(str1);
@@ -164,6 +171,7 @@ try {
 			stmt.execute(str8);
 			stmt.execute(str10);
 			stmt.execute(str11);
+			stmt.execute(str13);
 			
 			
 			ResultSet result;
@@ -172,26 +180,26 @@ try {
 			
 			//destination field empty, search origins and date only
 			if (!origin.equals("") && destination.equals("")){
-				String stred = "SELECT * FROM final where city ='" + origin + "' and Departure LIKE '"
+				String stred = "SELECT * FROM final2 where city ='" + origin + "' and Departure LIKE '"
 						+ traveldate + "%' Order by " + sortcommand + " asc;";
 				result = stmt.executeQuery(stred);
 				
 			}
 			//origin field empty, search destinations and date only
 			else if (origin.equals("") && !destination.equals("")){
-				String streo = "SELECT * FROM final where destcity ='" + destination + "' and Departure LIKE '"
+				String streo = "SELECT * FROM final2 where destcity ='" + destination + "' and Departure LIKE '"
 						+ traveldate + "%' Order by " + sortcommand + " asc;";
 				result = stmt.executeQuery(streo);
 			}
 			
 			//both empty, search all by date
 			else if ((origin.equals("") && destination.equals(""))){
-				String strbe = "SELECT * FROM final where Departure LIKE '" + traveldate + "%' Order by " + sortcommand + " asc;";
+				String strbe = "SELECT * FROM final2 where Departure LIKE '" + traveldate + "%' Order by " + sortcommand + " asc;";
 				result = stmt.executeQuery(strbe);
 			}
 			else{
 			//origin and destination both have fields, search by both and date	
-				String str4 = "SELECT * FROM final where city ='" + origin 
+				String str4 = "SELECT * FROM final2 where city ='" + origin 
 						+ "' and destcity = '"    + destination +  "' and Departure LIKE '"
 								+ traveldate + "%' Order by " + sortcommand + " asc;";
 				result = stmt.executeQuery(str4);

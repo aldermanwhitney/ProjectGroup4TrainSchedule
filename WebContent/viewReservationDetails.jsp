@@ -124,7 +124,9 @@ Choose a current reservation to cancel it<br>
 					"where final.Train_ID = r.Train_ID\n" + 
 					"and final.Departure = r.Departure\n" + 
                     "and final.Stop1_ID = r.OriginStop_ID\n" + 
-                    "and final.Stop2_ID = r.DestinationStop_ID);"; 
+                    "and final.Stop2_ID = r.DestinationStop_ID);";
+                    
+                    
 						
 						
 						
