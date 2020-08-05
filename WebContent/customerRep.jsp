@@ -28,7 +28,7 @@ You are not logged in<br/>
 
 
 <h1>Add New Train Schedule</h1> 
-	<form method ="post" action="addTrainScheduleToDatabase.jsp"> <%-- add this jsp file --%>
+	<form method ="post" action="addTrainsScheduleToDatabase.jsp"> <%-- add this jsp file --%>
 	<table>
 	<tr>
 		<td>Train ID</td>

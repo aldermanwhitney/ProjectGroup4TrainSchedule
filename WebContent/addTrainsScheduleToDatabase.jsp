@@ -11,8 +11,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 <%-- look at register.jsp --%>
+success and fail page for adding train schedule<br>
+if success, direct user to go back and check train schedule<br>
+if fail, direct user to go back and re-register<br>
 
 </body>
 </html>
