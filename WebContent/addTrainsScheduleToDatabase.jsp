@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Train Schedule Registration</title>
 </head>
 <body>
 <%-- look at register.jsp --%>
