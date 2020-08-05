@@ -27,16 +27,48 @@ You are not logged in<br/>
 %>
 
 
-<h1>Add New Train Schedule</h1> <%-- add forms to add new train schedule here --%>
+<h1>Add New Train Schedule</h1> 
+	<form method ="post" action="addTrainScheduleToDatabase.jsp"> <%-- add this jsp file --%>
+	<table>
+	<tr>
+		<td>Train ID</td>
+		<td><input type ="number" name="Train_ID" /></td>
+	</tr>
+	<tr>
+		<td>Origin ID</td>
+		<td><input type ="text" name="Origin_ID" /></td>
+	</tr>
+	<tr>
+		<td>Destination ID</td>
+		<td><input type ="text" name="Destination_ID" /></td>
+	</tr>
+	<tr>
+		<td>Transit Line Name</td>
+		<td><input type ="text" name="TransitLineName" /></td>
+	</tr>
+	<tr>
+		<td>Departure</td>
+		<td><input type ="datetime-local" name="Departure" /></td>
+	</tr>
+	<tr>
+		<td>Arrival</td>
+		<td><input type ="datetime-local" name="Arrival" /></td>
+	</tr>
+	<tr>
+		<td>Travel Time(minutes)</td>
+		<td><input type ="number" name="TravelTime" /></td>
+	</tr>
+	<tr>
+		<td>Fare($)</td>
+		<td><input type ="number" name="Fare" /></td>
+	</tr>
+	</table>
+	<input type="submit" value="Add Train Schedule">
+</form>
 
 
 
 <br>
-<br>
-<br>
-<br>
-<br>
-
 <a href='viewEditTrainSchedules.jsp'>View Train Schedules</a>
 
 
