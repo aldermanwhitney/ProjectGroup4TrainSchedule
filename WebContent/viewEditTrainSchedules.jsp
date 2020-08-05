@@ -14,6 +14,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <a href='customerRep.jsp'>Add New Train Schedule</a> 
 <h1>Train Schedules List</h1> <%-- add table of train schedules here --%>
 
