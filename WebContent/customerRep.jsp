@@ -36,11 +36,25 @@ You are not logged in<br/>
 	</tr>
 	<tr>
 		<td>Origin ID</td>
-		<td><input type ="text" name="Origin_ID" value="TRTN"/></td>
+		<td>  
+		<select name="Origin_ID" id="Origin_ID">
+      		<option value="30PH">30PH</option>
+      		<option value="ABSN">ABSN</option>
+      		<option value="ATCO">ATCO</option>
+      		<option value="ATLC">ATLC</option>
+ 	 	</select>
+  		</td>
 	</tr>
 	<tr>
 		<td>Destination ID</td>
-		<td><input type ="text" name="Destination_ID" value="NYPS"/></td>
+		<td>  
+		<select name="Destination_ID" id="Destination_ID">
+      		<option value="30PH">30PH</option>
+      		<option value="ABSN">ABSN</option>
+      		<option value="ATCO">ATCO</option>
+      		<option value="ATLC">ATLC</option>
+ 	 	</select>
+  		</td>
 	</tr>
 	<tr>
 		<td>Transit Line Name</td>
