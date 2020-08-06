@@ -18,9 +18,58 @@
 <a href='customerRep.jsp'>Add New Train Schedule</a> 
 <h1>Train Schedules List</h1> 
 
-<%-- add table of train schedules here --%>
-add table here
+		<% try {
+	
+			//Get the database connection
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();		
 
+			//Create a SQL statement
+			Statement stmt = con.createStatement();
+			//Get the selected radio button from the index.jsp
+			//String entity = request.getParameter("TrainSchedule");
+			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
+			String str = "SELECT * FROM TrainSchedule";
+			//Run the query against the database.
+			ResultSet result = stmt.executeQuery(str);
+		%>
+		<!--  Make an HTML table to show the results in: -->
+	<table style ="width:100%">
+		<tr>    
+			<th>Train ID</th>
+			<th>Origin ID</th>
+			<th>Destination ID</th>
+			<th>Transit Line</th>
+			<th>Departure</th>
+			<th>Arrival</th>
+			<th>Travel Time</th>
+			<th>Fare</th>
+		</tr>
+			<%
+			//parse out the results
+			while (result.next()) { %>
+				<tr>    
+					<td><%= result.getString("Train_ID") %></td>
+					<td><%= result.getString("Origin_ID") %></td>
+					<td><%= result.getString("Destination_ID") %></td>
+					<td><%= result.getString("TransitLineName") %></td>
+					<td><%= result.getString("Departure") %></td>
+					<td><%= result.getString("Arrival") %></td>
+					<td><%= result.getString("TravelTime") %></td>
+					<td><%= result.getString("Fare") %></td>
+				</tr>
+				
+
+			<% }
+			//close the connection.
+			db.closeConnection(con);
+			%>
+		</table>
+
+			
+		<%} catch (Exception e) {
+			out.print(e);
+		}%>
 <br>
 <br>
 <br>
