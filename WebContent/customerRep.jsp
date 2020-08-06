@@ -36,7 +36,7 @@ You are not logged in<br/>
 	</tr>
 	<tr>
 		<td>Origin ID</td>
-		<td><input type ="text" name="Origin_ID" value="NWBR"/></td>
+		<td><input type ="text" name="Origin_ID" value="TRTN"/></td>
 	</tr>
 	<tr>
 		<td>Destination ID</td>
