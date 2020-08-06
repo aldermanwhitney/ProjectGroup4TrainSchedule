@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" 
 	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
@@ -17,7 +17,7 @@ if success, direct user to go back and check train schedule<br>
 if fail, direct user to go back and re-register<br>
 
 
-<%
+<%--
 
 
 
@@ -70,7 +70,7 @@ if fail, direct user to go back and re-register<br>
 		out.print(ex);
 		out.print("Train Schedule Insert failed, Please try again. (Possible Duplicate Key or Contraint Violation)");
 	}
-%>
+--%>
 
 </body>
 </html>
