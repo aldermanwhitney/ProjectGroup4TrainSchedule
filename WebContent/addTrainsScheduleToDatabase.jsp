@@ -22,7 +22,7 @@
 		//Create a SQL statement
 		Statement stmt = con.createStatement();
 
-		//Get parameters from the HTML form at the index.jsp
+		//Get parameters from the HTML form at the customerRep.jsp
 		String newTrain_ID = request.getParameter("Train_ID");
 		String newOrigin_ID = request.getParameter("Origin_ID");
 		String newDestination_ID = request.getParameter("Destination_ID");

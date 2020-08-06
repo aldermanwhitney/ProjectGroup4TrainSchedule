@@ -14,8 +14,7 @@
 <title>Train Schedules</title>
 </head>
 <body>
-
-<a href='customerRep.jsp'>Add New Train Schedule</a> 
+<a href='customerRep.jsp'>View Add Train Schedule Page</a>
 <h1>Train Schedules List</h1> 
 
 		<% try {
@@ -57,6 +56,7 @@
 					<td><%= result.getString("Arrival") %></td>
 					<td><%= result.getString("TravelTime") %></td>
 					<td><%= result.getString("Fare") %></td>
+					<td><input type="button" id="deleteTrainSchedule" value="Delete" /></td>
 				</tr>
 				
 
