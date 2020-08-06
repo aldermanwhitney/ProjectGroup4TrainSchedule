@@ -33,7 +33,7 @@
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
 		%>
-		<!--  Make an HTML table to show the results in: -->
+	<!--  Make an HTML table to show the results in: -->
 	<table style ="width:100%">
 		<tr>    
 			<th>Train ID</th>
