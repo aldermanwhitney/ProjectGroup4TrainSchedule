@@ -20,9 +20,6 @@ if fail, direct user to go back and re-register<br>
 
 <%
 
-
-
-
 	try {
 
 		//Get the database connection
