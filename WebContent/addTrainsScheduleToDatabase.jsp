@@ -15,9 +15,10 @@
 success and fail page for adding train schedule<br>
 if success, direct user to go back and check train schedule<br>
 if fail, direct user to go back and re-register<br>
+<br>
+<br>
 
-
-<%--
+<%
 
 
 
@@ -70,7 +71,7 @@ if fail, direct user to go back and re-register<br>
 		out.print(ex);
 		out.print("Train Schedule Insert failed, Please try again. (Possible Duplicate Key or Contraint Violation)");
 	}
---%>
+%>
 
 </body>
 </html>
