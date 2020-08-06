@@ -14,7 +14,7 @@
 <title>Train Schedules</title>
 </head>
 <body>
-<a href='customerRep.jsp'>View Add Train Schedule Page</a>
+<a href='customerRep.jsp'>Back to Customer Rep Home Page</a>
 <h1>Train Schedules List</h1> 
 
 		<% try {
@@ -33,7 +33,7 @@
 			ResultSet result = stmt.executeQuery(str);
 		%>
 	<!--  Make an HTML table to show the results in: -->
-	<table style ="width:100%">
+	<table style ="width:75%">
 		<tr>    
 			<th>Train ID</th>
 			<th>Origin ID</th>
@@ -56,7 +56,11 @@
 					<td><%= result.getString("Arrival") %></td>
 					<td><%= result.getString("TravelTime") %></td>
 					<td><%= result.getString("Fare") %></td>
-					<td><input type="button" id="deleteTrainSchedule" value="Delete" /></td>
+					<td>
+					<form method="post" action="removeTrainScheduleFromDatabase.jsp"></form>
+					<input type="button" value="Delete" />
+					<input type="hidden" id="thisField1" name="Train_ID" value="hiddenValue">
+					<input type="hidden" id="thisField2" name="inputName" value="hiddenValue">
 				</tr>
 				
 

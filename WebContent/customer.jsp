@@ -59,7 +59,8 @@ You are not logged in<br/>
 	<input type="submit" value="Search">
 	</form>
 <br>
-
+<a href='forumPage.jsp'>View Forum</a>
+<br>
 <a href='logout.jsp'>Log Out</a>
 
 </body>
