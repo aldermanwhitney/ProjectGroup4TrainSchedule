@@ -60,7 +60,7 @@
 					<form method="post" action="removeTrainScheduleFromDatabase.jsp"></form>
 					<input type="button" value="Delete" />
 					<input type="hidden" id="thisField1" name="Train_ID" value="hiddenValue">
-					<input type="hidden" id="thisField2" name="inputName" value="hiddenValue">
+					</td>
 				</tr>
 				
 

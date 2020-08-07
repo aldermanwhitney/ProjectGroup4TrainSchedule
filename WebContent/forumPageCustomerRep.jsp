@@ -8,12 +8,12 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<%-- This is the forum page the customer sees --%>
-<title>Forum for Questions and Answers</title>
+<%-- This is the forum page the customer rep sees --%>
+<title>Forum for Questions and Answers: Customer Rep View</title>
 	</head>
 		<body>
-			<a href='customer.jsp'>Back to Customer Home Page</a>
-			<h1>Forum</h1>
+			<a href='customerRep.jsp'>Back to Customer Rep Home Page</a>
+			<h1>Forum: Customer Rep View</h1>
 			
 			
 				<% try {
@@ -37,6 +37,7 @@
 						<td>username</td>    
 						<td>Questions</td>
 						<td>Answers</td>
+						<td>Reply</td>
 					</tr>
 				<%
 						//parse out the results
@@ -45,6 +46,10 @@
 								<td><%= result.getString("Username") %></td>    
 								<td><%= result.getString("Question") %></td>
 								<td><%= result.getString("Answer") %></td>
+								<td>
+								<form method="post" action="replyToCustomer.jsp"></form>
+								<input type="button" value="Reply" />
+								</td>
 							</tr>
 							
 						<% }

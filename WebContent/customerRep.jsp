@@ -127,7 +127,7 @@ You are not logged in<br/>
 <br>
 <a href='viewEditTrainSchedules.jsp'>View Train Schedules</a>
 <br>
-<a href='forumPage.jsp'>View Forum</a>
+<a href='forumPageCustomerRep.jsp'>View Forum</a>
 
 </body>
 </html>
