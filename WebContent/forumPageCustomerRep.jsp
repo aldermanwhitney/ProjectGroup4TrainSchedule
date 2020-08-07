@@ -46,10 +46,7 @@
 								<td><%= result.getString("Username") %></td>    
 								<td><%= result.getString("Question") %></td>
 								<td><%= result.getString("Answer") %></td>
-								<td>
-								<form method="post" action="replyToCustomer.jsp"></form>
-								<input type="button" value="Reply" />
-								</td>
+								<td><a href='replyToCustomer.jsp'>Reply</a></td>
 							</tr>
 							
 						<% }
