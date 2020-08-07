@@ -75,20 +75,11 @@ int reservationnum = 1;
 		
 		//found duplicate reservation number
 		if (reservationnum == resvalue){
-			reservationnum += 13;		
+			reservationnum *= 13;		
 		} 
 	}
 	
-	
-	
-	
-/*
-String str3 = "INSERT into Reservation values(" + reservationnum + ", '" + currentdate + "' ,"
-		+ " '" + username + "' , '" + trainid + ", '" + departure + "');";
-
-*/	
-
-		
+			
 		//Make an insert statement for the Reservation sql table:
 		String insert = "INSERT INTO Reservation(ReservationNumber, ResDate, username, Train_ID, Departure, TotalFare, OriginStop_ID, DestinationStop_ID)"
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
