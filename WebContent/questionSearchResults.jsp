@@ -46,7 +46,7 @@ Question Search Results
 		
 	} catch (Exception ex) {
 		out.print(ex);
-		out.print("failed :(  -  (Possible Duplicate Key or Contraint Violation)"); //fix this
+		out.print("Search failed  -  (Possible Duplicate Key or Contraint Violation)"); //fix this
 	}
 %>
 
