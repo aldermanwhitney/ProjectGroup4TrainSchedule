@@ -31,7 +31,7 @@
 						ResultSet result = stmt.executeQuery(str);
 				%>
 				<!--  Make an HTML table to show the results in: -->
-					<table style ="width:100%">
+					<table style ="width:70%">
 					<tr>
 						<td>username</td>    
 						<td>Questions</td>
@@ -42,8 +42,8 @@
 						while (result.next()) { %>
 							<tr>
 								<td><%= result.getString("Username") %></td>    
-								<td><%= result.getString("Questions") %></td>
-								<td><%= result.getString("Answers") %></td>
+								<td><%= result.getString("Question") %></td>
+								<td><%= result.getString("Answer") %></td>
 							</tr>
 							
 						<% }
