@@ -41,7 +41,7 @@ You are not logged in<br/>
 	</tr>
 	<tr>    
 	<td>Travel Date:</td><td><input type="date" name="traveldate" required pattern="\d{4}-\d{2}-\d{2}" title="YYYY-MM-DD" value="2020-08-06"
-       min="2020-08-06" max="2025-12-31">
+       min="2020-08-24" max="2025-12-31">
     <span class="validity"></span></td>
 	</tr>
 	<tr>    
