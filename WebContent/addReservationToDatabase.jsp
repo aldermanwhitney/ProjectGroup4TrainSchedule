@@ -42,7 +42,7 @@ String dayOfMonthStr = ((dayOfMonth < 10) ? "0" : "") + dayOfMonth;
 int month = now.get(Calendar.MONTH) + 1;
 String monthStr = ((month < 10) ? "0" : "") + month;
 int year = now.get(Calendar.YEAR);
-System.out.print(dayOfMonth+"/"+month+"/"+year);
+//System.out.print(dayOfMonth+"/"+month+"/"+year);
 
 String currentdate = year + "-" + monthStr + "-" + dayOfMonthStr;
 

@@ -41,10 +41,10 @@ Choose a current reservation to cancel it<br>
 		
 		Calendar c = Calendar.getInstance();
 		String timeComp = c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE)+":"+c.get(Calendar.SECOND);
-		System.out.println(timeComp); 
+		//System.out.println(timeComp); 
 		
 		String currentdatetime = currentdate + " " + timeComp;
-		System.out.println(currentdatetime);
+		//System.out.println(currentdatetime);
 		
 		//Drop temp views
 		String d1 = "Drop View if Exists t1;";

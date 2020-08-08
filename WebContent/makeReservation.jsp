@@ -72,7 +72,7 @@ try {
 			int month = now.get(Calendar.MONTH) + 1;
 			String monthStr = ((month < 10) ? "0" : "") + month;
 			int year = now.get(Calendar.YEAR);
-			System.out.print(dayOfMonth+"/"+month+"/"+year);
+			//System.out.print(dayOfMonth+"/"+month+"/"+year);
 
 			String currentdate = year + "-" + monthStr + "-" + dayOfMonthStr;
 			
@@ -325,7 +325,7 @@ try {
 			
 			
 			 String discount = request.getParameter("discount");
-			 System.out.println(discount);
+			 //System.out.println(discount);
 			 String discount2;
 			if (discount.equals("senior")){
 				finalfare = finalfare - finalfare*.35;
@@ -398,7 +398,7 @@ try {
 			//close the connection.
 			db.closeConnection(con);
 		} catch (Exception e) {
-			out.print(e);
+			//out.print(e);
 			out.print("Select a Route from the top of the page before pressing Reserve!");
 		}
 	%>
