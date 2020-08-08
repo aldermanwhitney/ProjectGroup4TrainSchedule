@@ -9,7 +9,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<h2>
+	Reservations by Customer
+	</h2>
+	<br>
 <%
 		try {
 
@@ -21,7 +24,7 @@
 			String lName = request.getParameter("lastName");
 			Statement stmt = con.createStatement();
 
-			String strQuery = "SELECT * FROM Reservation JOIN customer using (username) WHERE firstname =\'"+fName+"\' and lastname =\'"+lName+"\'";
+			String strQuery = "SELECT * FROM TrainSchedule Join Reservation using (Train_ID, Departure) JOIN customer using (username) WHERE firstname =\'"+fName+"\' and lastname =\'"+lName+"\'";
 			ResultSet rs = stmt.executeQuery(strQuery);
 			
 			out.print("<table style = 'width:50%'>");
@@ -33,7 +36,32 @@
 				out.print("</td>");
 				
 				out.print("<td>");
+				out.print("Departure");
+				out.print("</td>");
+				
+				out.print("<td>");
+				out.print("Origin");
+				out.print("</td>");
+				
+				out.print("<td>");
+				out.print("Destination");
+				out.print("</td>");
+				
+				out.print("<td>");
+				out.print("Transit Line");
+				out.print("</td>");
+				
+				out.print("<td>");
+				out.print("Train ID");
+				out.print("</td>");
+				
+				
+				out.print("<td>");
 				out.print("Reservation Number");
+				out.print("</td>");
+				
+				out.print("<td>");
+				out.print("Total Fare");
 				out.print("</td>");
 				
 	
@@ -51,11 +79,34 @@
 					out.print(rs.getString("lastname"));
 					out.print("</td>");
 					
+					out.print("<td>");
+					out.print(rs.getString("Departure"));
+					out.print("</td>");
+					
+					out.print("<td>");
+					out.print(rs.getString("OriginStop_ID"));
+					out.print("</td>");
+					
+					out.print("<td>");
+					out.print(rs.getString("DestinationStop_ID"));
+					out.print("</td>");
+					
+					out.print("<td>");
+					out.print(rs.getString("TransitLineName"));
+					out.print("</td>");
+					
+					out.print("<td>");
+					out.print(rs.getString("Train_ID"));
+					out.print("</td>");
 					
 					out.print("<td>");
 					out.print(rs.getString("ReservationNumber"));
 					out.print("</td>");
 					
+					out.print("<td>");
+					out.print("$");
+					out.print(rs.getString("TotalFare"));
+					out.print("</td>");
 				
 					out.print("</tr>");
 					

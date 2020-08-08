@@ -28,7 +28,9 @@
 				ResultSet rs = stmt.executeQuery(strQuery);
 				
 				out.print("<table style = 'width:50%'>");
-
+					out.print("<tr>");
+					out.print("<h2>Revenue Based on Transit Line</h2><br>");
+					out.print("</tr>");
 					out.print("<tr>");
 					
 					out.print("<td>");
@@ -83,8 +85,11 @@
 				
 				out.print("<table style = 'width:50%'>");
 
-					out.print("<tr>");
 					
+					out.print("<tr>");
+					out.print("<h2>Revenue Based on Customer</h2><br>");
+					out.print("</tr>");
+					out.print("<tr>");
 					out.print("<td>");
 					out.print("Customer Name");
 					out.print("</td>");
