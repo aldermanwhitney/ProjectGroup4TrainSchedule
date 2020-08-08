@@ -57,8 +57,7 @@
 					<td><%= result.getString("TravelTime") %></td>
 					<td><%= result.getString("Fare") %></td>
 					<td>
-					<form method="post" action="removeTrainScheduleFromDatabase.jsp"> 
-					<input type="submit" value="Delete">
+					<a href='removeTrainSchedulePage.jsp'>Delete this row</a>
 					</td>
 				</tr>
 				

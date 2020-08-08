@@ -10,9 +10,10 @@
 <meta charset="ISO-8859-1">
 <title>Train Schedule Registration</title>
 </head>
+<a href='viewEditTrainSchedules.jsp'>View Train Schedules</a>
+<br>
 <body>
 <%
-
 	try {
 
 		//Get the database connection
@@ -55,7 +56,7 @@
 		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 		con.close();
 
-		out.print("Train Schedule Insert succeeded! Press the back arrow to add more train schedules, view train schedules, or view forum.");
+		out.print("Train Schedule Insert succeeded!");
 		
 	} catch (Exception ex) {
 		out.print(ex);

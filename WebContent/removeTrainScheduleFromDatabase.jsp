@@ -7,8 +7,10 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Train Schedule Delete status page</title>
 </head>
+<a href='viewEditTrainSchedules.jsp'>View Train Schedules</a>
+<br>
 <body>
 
 <%
@@ -23,17 +25,19 @@
 		Statement stmt = con.createStatement();
 
 		//Get parameters from the viewEditTrainSchedules.jsp
-		String newTrain_ID = request.getParameter("Tr"); //fix this
+		String deleteTrain_ID = request.getParameter("Train_ID"); //fix this
+		String deleteDeparture = request.getParameter("Departure"); //fix this
 
 
 		//Make an insert statement for the TrainSchedule sql table:
-		String remove = ")"; //fix this
+		String remove = "DELETE FROM TrainSchedule where Train_ID = ? AND Departure = ?"; //fix this
 		
 		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 		PreparedStatement ps = con.prepareStatement(remove);
 
 		//Add parameters of the query. Start with 1, the 0-parameter is the DELETE statement itself
-		ps.setString(1, newTrain_ID); //fix this
+		ps.setString(1, deleteTrain_ID); //fix this
+		ps.setString(2, deleteDeparture); //fix this
 		
 		//Run the query against the DB
 		ps.executeUpdate();
@@ -48,12 +52,6 @@
 		out.print("Train Schedule Delete failed, Please try again. (Possible Duplicate Key or Contraint Violation)");
 	}
 %>
-
-
-
-
-<a href='viewEditTrainSchedules.jsp'>View Train Schedules</a>
-
 
 
 </body>
