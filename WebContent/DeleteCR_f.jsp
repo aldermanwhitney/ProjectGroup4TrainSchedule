@@ -17,15 +17,13 @@
 
 	try {
 
-		//Get the database connection
-		ApplicationDB db = new ApplicationDB();	
-		Connection con = db.getConnection();
-
-		//Create a SQL statement
+		Class.forName("com.mysql.jdbc.Driver"); 
+		java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://cs336db-wa.cfjq7n5mwnaa.us-east-2.rds.amazonaws.com:3306/TrainProjectGroup4","admin", "aw113014"); 
 		Statement stmt = con.createStatement();
+		
 		String ssn = request.getParameter("SSN");
 		
-		String strQuery = "SELECT COUNT(*) FROM CustomerRep WHERE SSN=\'" + ssn + "\'";;
+		String strQuery = "SELECT COUNT(*) FROM CustomerRep WHERE SSN=\'" + ssn + "\'";
 		ResultSet rs = stmt.executeQuery(strQuery);
 		rs.next();
 		String Countrow = rs.getString(1);
@@ -38,16 +36,14 @@
 		ps.executeUpdate();
 		con.close();
 		out.println("Deletion succeeded!");
-		out.println("<a href='manageCR.jsp'> manage customer representative</a>");
+		//out.println("<a href='manageCR.jsp'>Manage Customer Representative</a>");
 		
-		}
-		else
-		{
-			out.println("The SSN you want to delete is not correct, please check again.");
-			
+		}else{
+			out.println("The SSN you want to delete is not correct, please check again.");	
 		}
 		
-		
+		con.close();
+		out.println("<br><a href='manageCR.jsp'> Manage customer representative</a>");
 		
 	} catch (Exception e) {
 		out.print(e);

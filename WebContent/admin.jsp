@@ -20,7 +20,7 @@ You are not logged in<br/>
 Welcome <%=session.getAttribute("user")%> 
 <br>
 <br>
-<b>You have Administrator privileges</b>
+<h2>Administrator Tools Set</h2>
 <br>
 <br> <a href='manageCR.jsp'> Manage customer representative</a>
 <br>

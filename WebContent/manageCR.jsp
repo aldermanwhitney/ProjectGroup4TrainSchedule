@@ -8,11 +8,16 @@
 </head>
 <body>
 
+<h2>
+	Manage Customer Representative
+	</h2>
+	<br>
 <a href='AddCR.jsp'> Add</a>
-
-<a href='UpdateCRB.jsp'> Edit</a>
-
+<br>
+<a href='UpdateCR.jsp'> Edit</a>
+<br>
 <a href='DeleteCR.jsp'> Delete</a>
+<br>
 <br>
 <br>
 <a href='admin.jsp'>Back to management page</a>

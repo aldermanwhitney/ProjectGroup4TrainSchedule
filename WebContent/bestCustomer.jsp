@@ -9,7 +9,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<h2>
+	Best Customer
+	</h2>
+	<br>
 <%
 try {
 
@@ -26,7 +29,7 @@ try {
 		out.print("<tr>");
 		
 		out.print("<td>");
-		out.print("Best Customer Name");
+		out.print("Customer Name");
 		out.print("</td>");
 		
 		out.print("<td>");
@@ -50,6 +53,7 @@ try {
 			
 			
 			out.print("<td>");
+			out.print("$");
 			out.print(rs.getString("topRev"));
 			out.print("</td>");
 			
@@ -65,6 +69,9 @@ try {
 out.println("Error"); 
 }
 	%>
+	<br>
+	<br>
+	<a href='admin.jsp'>Back to management page</a>
 
 </body>
 </html>

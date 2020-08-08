@@ -10,7 +10,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<h2>
+	Monthly Sales Report
+	</h2>
+	<br>
 <%
 		try {
 
@@ -59,12 +62,13 @@
 					
 				}
 			out.print("</table>");
-		
+			con.close();
 		} catch (Exception e) {
 			out.print(e);
 		}
 	%>
-
-
+	<br>
+	<br>
+	<a href='admin.jsp'>Back to management page</a>
 </body>
 </html>

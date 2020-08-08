@@ -8,15 +8,21 @@
 </head>
 <body>
 
-<br> Delete Customer Representative <br>
+<br> Delete Customer Representative 
+<br>
+<br>
 <form method="post" action="DeleteCR_f.jsp">
 	<table>
 	<tr>
 	<td>SSN:</td><td><input type="text" name="SSN"></td>
 	</tr>
 	</table>
+	<br>
 	<input type="submit" value="Delete">
 	</form>
-	
+	<br>
+	<br>
+	<br>
+	<a href='admin.jsp'>Back to management page</a>
 </body>
 </html>

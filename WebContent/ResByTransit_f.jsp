@@ -55,11 +55,15 @@
 					
 				}
 			out.print("</table>");
-		
+			con.close();
 		} catch (Exception e) {
 			out.print(e);
 		}
 	%>
+<br>
+<br>
+<br>
+<a href='admin.jsp'>Back to management page</a>
 
 </body>
 </html>

@@ -18,14 +18,10 @@
 
 	try {
 
-		//Get the database connection
-		ApplicationDB db = new ApplicationDB();	
-		Connection con = db.getConnection();
-
-		//Create a SQL statement
+		Class.forName("com.mysql.jdbc.Driver"); 
+		java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://cs336db-wa.cfjq7n5mwnaa.us-east-2.rds.amazonaws.com:3306/TrainProjectGroup4","admin", "aw113014"); 
 		Statement stmt = con.createStatement();
 
-		//Get parameters from the HTML form at the admin.jsp
 		String ssn = request.getParameter("SSN");
 		String newUser = request.getParameter("username");
 		String newPassword = request.getParameter("pass");
@@ -46,17 +42,15 @@
 		ps.setString(4, firstName);
 		ps.setString(5, lastName);
 		
-		//Run the query against the DB
 		ps.executeUpdate();
 
-		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
-		con.close();
-
 		out.print("Insert succeeded!");
+		con.close();
+		out.println("<br><a href='manageCR.jsp'> Manage customer representative</a>");
 		
 	} catch (Exception ex) {
 		out.print(ex);
-		out.print("Insert failed :(  -  (Possible Duplicate Key)");
+		out.print("Insert failed");
 	}
 %>
 

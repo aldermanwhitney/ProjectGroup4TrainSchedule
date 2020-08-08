@@ -7,7 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<br> Add New Customer Representative <br>
+<br> Add New Customer Representative 
+<br>
+<br>
 <form method="post" action="AddCR_f.jsp">
 	<table>
 	<tr>    
@@ -26,8 +28,13 @@
 	<td>SSN:</td><td><input type="text" name="SSN"></td>
 	</tr>
 	</table>
+	<br>
 	<input type="submit" value="Register">
 	</form>
 <br>
+<br>
+<br>
+<br>
+<a href='admin.jsp'>Back to management page</a>
 </body>
 </html>

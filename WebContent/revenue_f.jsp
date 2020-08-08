@@ -51,6 +51,7 @@
 						out.print("</td>");
 						
 						out.print("<td>");
+						out.print("$");
 						out.print(rs.getString("revt"));
 						out.print("</td>");
 						
@@ -59,7 +60,7 @@
 						
 					}
 				out.print("</table>");
-
+				con.close();
 			
 			} catch (Exception e) {
 				out.print(e);
@@ -109,6 +110,7 @@
 						
 						
 						out.print("<td>");
+						out.print("$");
 						out.print(rs.getString("revc"));
 						out.print("</td>");
 						
@@ -117,17 +119,18 @@
 						
 					}
 				out.print("</table>");
-
+				con.close();
 			
 			} catch (Exception e) {
 				out.print(e);
 			}
-		}
-		
-		else{
+		}else{
 			out.println("Error"); 
 		}
 	%>
-
+<br>
+<br>
+<br>
+<a href='admin.jsp'>Back to management page</a>
 </body>
 </html>

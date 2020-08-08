@@ -7,10 +7,14 @@
 <title>Insert title here</title>
 </head>
 <body>
+<h2>
+	View Reservations by
+	</h2>
+	<br>
 
-    <a href='ResByTransit.jsp'> By transit line</a>
+    <a href='ResByTransit.jsp'> Transit line</a>
     <br>
-    <a href='ResByCus.jsp'> By customer name</a>
+    <a href='ResByCus.jsp'> Customer name</a>
     <br>
     <br>
     <br>

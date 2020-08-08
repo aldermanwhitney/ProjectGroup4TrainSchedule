@@ -32,7 +32,8 @@
 		<br> <input type="submit" value="submit">
 		
 	</form>
-	
+	<br>
+	<br>
 	<a href='admin.jsp'>Back to management page</a>
 
 
