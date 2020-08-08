@@ -16,8 +16,8 @@
 			<h1>Forum</h1>
 			
 			<b>Search Questions</b>
-			<input type="text" name="origin"> <%-- Text fields, "origin", are sent to next page (scheduleSearchResult.jsp)--%>
 			<form method="post" action="questionSearchResults.jsp"> 
+			<input type="text" name="searchQuery"> <%-- Text fields, "origin", are sent to next page (scheduleSearchResult.jsp)--%>
 			<input type="submit" value="Search">
 			
 				<% try {
