@@ -22,7 +22,7 @@
 
 			Statement stmt = con.createStatement();
 
-			String strQuery = "SELECT MONTHNAME(ResDate) as month, sum(TotalFare) as sales FROM Reservation group by month order by month asc ";
+			String strQuery = "SELECT MONTHNAME(ResDate) as month, sum(TotalFare) as sales FROM Reservation group by month order by ResDate asc ";
 			ResultSet rs = stmt.executeQuery(strQuery);
 			
 			out.print("<table style = 'width:50%'>");
