@@ -39,6 +39,13 @@ Choose a current reservation to cancel it<br>
 		String currentdate = year + "-" + monthStr + "-" + dayOfMonthStr;
 	
 		
+		Calendar c = Calendar.getInstance();
+		String timeComp = c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE)+":"+c.get(Calendar.SECOND);
+		System.out.println(timeComp); 
+		
+		String currentdatetime = currentdate + " " + timeComp;
+		System.out.println(currentdatetime);
+		
 		//Drop temp views
 		String d1 = "Drop View if Exists t1;";
 		String d2 = "Drop View if Exists t2;";
@@ -46,7 +53,7 @@ Choose a current reservation to cancel it<br>
 		String d4 = "Drop View if Exists t4;";
 		String d5 = "Drop View if Exists t5;";
 		String d6 = "Drop View if Exists schedulewithstops";
-		String d7 = "Drop View if Exists totalnumberofstops";
+		String d7 = "Drop View if Exists numberofstops";
 		String d8 = "Drop View if Exists final";
 		String d9 = "Drop View if Exists resfinal";
 		
@@ -102,7 +109,7 @@ Choose a current reservation to cancel it<br>
 				String str9 = "SELECT * FROM schedulewithstops;";
 		
 				
-		String str10 = "CREATE VIEW totalnumberofstops\n" + 
+		String str10 = "CREATE VIEW numberofstops\n" + 
 				"AS\n" +
 				"(select t.TransitLineName, t.fare, count(distinct s.Stop_ID) totalnumstops\n" +
 				"from Stops s, TrainSchedule t\n" +
@@ -144,11 +151,11 @@ Choose a current reservation to cancel it<br>
 	//		String str5 = "SELECT * FROM t6;";
 	
 	
-	String str16 = "SELECT * FROM resfinal where username='" + username + "' and ResDate < '"
-			+ currentdate + "';";
+	String str16 = "SELECT * FROM resfinal where username='" + username + "' and Stoptime < '"
+			+ currentdatetime + "';";
 			
-	String str17 = "SELECT * FROM resfinal where username='" + username + "' and ResDate >= '"
-					+ currentdate + "';";	
+	String str17 = "SELECT * FROM resfinal where username='" + username + "' and Stoptime >= '"
+					+ currentdatetime + "';";	
 					
 					
 					
@@ -503,7 +510,6 @@ Choose a current reservation to cancel it<br>
 <br><br><b><i>Past Reservations</i></b><br>
 <%ResultSet pastreservations = stmt.executeQuery(str16);
 
-//Make an HTML table to show the results in:
 out.print("<table>");
 
 //make a row
@@ -525,14 +531,32 @@ out.print("</td>");
 
 out.print("<td>");
 out.print("<b>");
-	out.print("Origin");
+	out.print("Transit Line Origin");
 	out.print("</b>");
 out.print("</td>");
 
+//out.print("<td>");
+//out.print("<b>");
+	//out.print("Origin State");
+	//out.print("</b>");
+//out.print("</td>");
+
+//make a column
+//out.print("<td>");
+//out.print("<b>");
+	//out.print("Destination Station ID");
+	//out.print("</b>");
+//out.print("</td>");
+
+//	out.print("<td>");
+//out.print("<b>");
+	//out.print("Destination City");
+//	out.print("</b>");
+//out.print("</td>");
 
 out.print("<td>");
 out.print("<b>");
-	out.print("Destination");
+	out.print("Transit Line Destination");
 	out.print("</b>");
 out.print("</td>");
 
@@ -544,7 +568,7 @@ out.print("<b>");
 	out.print("</b>");
 out.print("</td>");
 
-
+/*
 //make a column
 out.print("<td>");
 out.print("<b>");
@@ -558,6 +582,7 @@ out.print("<b>");
 	out.print("Arrival");
 	out.print("</b>");
 out.print("</td>");
+*/
 
 //make a column
 out.print("<td>");
@@ -569,7 +594,36 @@ out.print("</td>");
 //make a column
 out.print("<td>");
 out.print("<b>");
-	out.print("Fare");
+	out.print("Fare Paid");
+	out.print("</b>");
+out.print("</td>");
+
+
+//make a column
+out.print("<td>");
+out.print("<b>");
+	out.print("Board Stop");
+	out.print("</b>");
+out.print("</td>");
+
+//make a column
+out.print("<td>");
+out.print("<b>");
+	out.print("Board Time");
+	out.print("</b>");
+out.print("</td>");
+
+//make a column
+out.print("<td>");
+out.print("<b>");
+	out.print("Disembark Stop");
+	out.print("</b>");
+out.print("</td>");
+
+//make a column
+out.print("<td>");
+out.print("<b>");
+	out.print("Disembark Time");
 	out.print("</b>");
 out.print("</td>");
 
@@ -594,80 +648,125 @@ while (pastreservations.next()) {
 	
 	
 	//make a row
-	out.print("<tr>");
-	
-	//make a column
-	out.print("<td>");
-	//Print out current bar or beer name:
-	out.print(pastreservations.getString("Train_ID"));
-	out.print("</td>");
-	
-	String TrainID = pastreservations.getString("Train_ID");
-	//out.print("<td>");
-	//Print out current bar/beer additional info: Manf or Address
-	//	out.print(result.getString("Origin_ID"));
-	//out.print("</td>");
+			out.print("<tr>");
+			
+			//make a column
+			out.print("<td>");
+			//Print out current bar or beer name:
+			out.print(pastreservations.getString("Train_ID"));
+			out.print("</td>");
+			
+			String TrainID = pastreservations.getString("Train_ID");
+			//out.print("<td>");
+			//Print out current bar/beer additional info: Manf or Address
+			//	out.print(result.getString("Origin_ID"));
+			//out.print("</td>");
 
-	out.print("<td>");
-	out.print(pastreservations.getString("OriginCity"));
-	out.print(", ");
-	out.print(pastreservations.getString("OriginState"));
- 	out.print("</td>");
-	
-	//out.print("<td>");
-	//out.print(result.getString("t1.State"));
- 	//out.print("</td>");
-	
-	//out.print("<td>");
-	//out.print(result.getString("Destination_ID"));
- 	//out.print("</td>");
- 	
-	out.print("<td>");
-	out.print(pastreservations.getString("DestinationCity"));
-	out.print(", ");
-	out.print(pastreservations.getString("DestinationState"));
- 	out.print("</td>");
-	
-	//out.print("<td>");
-	//out.print(result.getString("t2.State"));
- 	//out.print("</td>");
-	
-	out.print("<td>");
-	out.print(pastreservations.getString("TransitLineName"));
-	out.print("</td>");
-	
-	out.print("<td>");
-		out.print(pastreservations.getString("Departure"));
-	out.print("</td>");
-	
-	String Departure = pastreservations.getString("Departure");
-	String passinfo = TrainID + " "+ Departure;
-	
-	out.print("<td>");
-		out.print(pastreservations.getString("Arrival"));
-	out.print("</td>");
-	
-	out.print("<td>");
-	out.print(pastreservations.getString("TravelTime"));
-	out.print("</td>");
+			out.print("<td>");
+			out.print(pastreservations.getString("OriginCity"));
+			out.print(", ");
+			out.print(pastreservations.getString("OriginState"));
+		 	out.print("</td>");
+			
+			//out.print("<td>");
+			//out.print(result.getString("t1.State"));
+		 	//out.print("</td>");
+			
+			//out.print("<td>");
+			//out.print(result.getString("Destination_ID"));
+		 	//out.print("</td>");
+		 	
+			out.print("<td>");
+			out.print(pastreservations.getString("DestinationCity"));
+			out.print(", ");
+			out.print(pastreservations.getString("DestinationState"));
+		 	out.print("</td>");
+			
+			//out.print("<td>");
+			//out.print(result.getString("t2.State"));
+		 	//out.print("</td>");
+			
+			out.print("<td>");
+			out.print(pastreservations.getString("TransitLineName"));
+			String transitline = pastreservations.getString("TransitLineName");
+			out.print("</td>");
+			
+			/*
+			out.print("<td>");
+				out.print(result.getString("Departure"));
+			out.print("</td>");
+			*/
+			
+			String Departure = pastreservations.getString("Departure");
+			String passinfo = TrainID + " "+ Departure;
+			String numStops = pastreservations.getString("numstops");
+			/*
+			out.print("<td>");
+				out.print(result.getString("Arrival"));
+			out.print("</td>");
+			*/
+			out.print("<td>");
+			//out.print(result.getString("TravelTime"));
+			
+			String deststoptime = pastreservations.getString("deststoptime");
+			String originstoptime = pastreservations.getString("Stoptime");
+			
+			 String[] stringarr = deststoptime.split(" ", 2); 
+			 String[] stringarr2 = originstoptime.split(" ", 2); 
+			  
+		    String desttime = stringarr[1];
+		    String orgtime = stringarr2[1];
+			
+			 String[] stringarr3 = desttime.split(":", 3); 
+			 String[] stringarr4 = orgtime.split(":", 3); 
+			  
 
-	out.print("<td>");
-	out.print(pastreservations.getString("TotalFare"));
-	out.print("</td>");
-	
-	out.print("<td>");
-	out.print(pastreservations.getString("ReservationNumber"));
-	out.print("</td>");
+		   int traveltime =  Math.abs(Integer.parseInt(stringarr3[0]) - Integer.parseInt(stringarr4[0]))*60 + (Integer.parseInt(stringarr3[1]) - Integer.parseInt(stringarr4[1]));
+		   out.print(traveltime);
+		    
+		    out.print("</td>");
+		
+			out.print("<td>");
+			String totaltripfare = pastreservations.getString("Fare");
 
-	out.print("<td>");
-	out.print(pastreservations.getString("ResDate"));
-	out.print("</td>");	
-	
-	
-
-
-	
-	
+			int thistripfare = Integer.parseInt(totaltripfare)* Integer.parseInt(numStops) / Integer.parseInt(pastreservations.getString("totaltransitstops"));
+			double thistripfare2 = Double.parseDouble(totaltripfare)* Double.parseDouble(numStops) / Double.parseDouble(pastreservations.getString("totaltransitstops"));
+			DecimalFormat df = new DecimalFormat("#.###");
+			//out.print(df.format(thistripfare2));
+			out.print("$" + df.format(Double.parseDouble(pastreservations.getString("TotalFare"))));
+			out.print("</td>");
+			
+			out.print("<td>");
+			String city = pastreservations.getString("city");
+			out.print(pastreservations.getString("city"));
+			out.print(", ");
+			out.print(pastreservations.getString("state"));
+			out.print("</td>");
+			
+			out.print("<td>");
+			out.print(pastreservations.getString("Stoptime"));
+			String Stoptime = pastreservations.getString("Stoptime");
+			out.print("</td>");
+			
+			out.print("<td>");
+			out.print(pastreservations.getString("destcity"));
+			out.print(", ");
+			out.print(pastreservations.getString("deststate"));
+			String destcity = pastreservations.getString("destcity");
+			out.print("</td>");
+			
+			out.print("<td>");
+			out.print(pastreservations.getString("deststoptime"));
+			out.print("</td>");
+			
+			out.print("<td>");
+			out.print(pastreservations.getString("ReservationNumber"));
+			resnum = pastreservations.getString("ReservationNumber");
+			out.print("</td>");
+		
+			out.print("<td>");
+			out.print(pastreservations.getString("ResDate"));
+			out.print("</td>");	
 	
 	
 	

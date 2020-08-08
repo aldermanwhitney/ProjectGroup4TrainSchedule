@@ -75,7 +75,7 @@ int reservationnum = 1;
 		
 		//found duplicate reservation number
 		if (reservationnum == resvalue){
-			reservationnum *= 13;		
+			reservationnum += 13;		
 		} 
 	}
 	

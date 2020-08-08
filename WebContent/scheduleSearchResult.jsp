@@ -71,7 +71,7 @@ try {
 			String d4 = "Drop View if Exists t4;";
 			String d5 = "Drop View if Exists t5;";
 			String d6 = "Drop View if Exists schedulewithstops";
-			String d7 = "Drop View if Exists totalnumberofstops";
+			String d7 = "Drop View if Exists numberofstops";
 			String d8 = "Drop View if Exists final";
 			String d9 = "Drop View if Exists final2";
 			
@@ -129,7 +129,7 @@ try {
 					String str9 = "SELECT * FROM schedulewithstops;";
 			
 					
-			String str10 = "CREATE VIEW totalnumberofstops\n" + 
+			String str10 = "CREATE VIEW numberofstops\n" + 
 					"AS\n" +
 					"(select t.TransitLineName, t.fare, count(distinct s.Stop_ID) totalnumstops\n" +
 					"from Stops s, TrainSchedule t\n" +
