@@ -538,6 +538,7 @@ try {
 			db.closeConnection(con);
 		} catch (Exception e) {
 			out.print(e);
+			out.print("Select a Route from the top of the page before pressing Reserve!");
 		}
 	%>
 	<br>
