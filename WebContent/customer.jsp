@@ -51,8 +51,8 @@ You are not logged in<br/>
 	</table>
 	<i>Sort By:</i>
 	<br>
-	 <input type="radio" name="command" value="Stoptime"/>Arrival Time
-	 <input type="radio" name="command" value="deststoptime"/>Departure Time
+	 <input type="radio" name="command" value="deststoptime"/>Arrival Time
+	 <input type="radio" name="command" value="Stoptime"/>Departure Time
 	 <input type="radio" name="command" value="tf"/>Fare
 	 <br>
 	 <br>
