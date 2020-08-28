@@ -18,7 +18,7 @@
 
 			//Get the database connection
 			Class.forName("com.mysql.jdbc.Driver"); 
-			java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://cs336db-wa.cfjq7n5mwnaa.us-east-2.rds.amazonaws.com:3306/TrainProjectGroup4","admin", "aw113014"); 
+			java.sql.Connection con = DriverManager.getConnection("[REDACTED]"); 
 			//Get the inputs
 			String fName = request.getParameter("firstName");
 			String lName = request.getParameter("lastName");

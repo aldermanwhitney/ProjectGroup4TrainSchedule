@@ -19,7 +19,7 @@
 
 			//Get the database connection
 			Class.forName("com.mysql.jdbc.Driver"); 
-			java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://cs336db-wa.cfjq7n5mwnaa.us-east-2.rds.amazonaws.com:3306/TrainProjectGroup4","admin", "aw113014"); 
+			java.sql.Connection con = DriverManager.getConnection("[REDACTED]"); 
 			Statement stmt = con.createStatement();
 			/****right now we know the attribute trip_type  = oneway, so we skip it and put it as a conditional statement***/
 

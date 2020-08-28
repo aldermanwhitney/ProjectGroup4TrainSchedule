@@ -20,7 +20,7 @@
 
 				//Get the database connection
 				Class.forName("com.mysql.jdbc.Driver"); 
-				java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://cs336db-wa.cfjq7n5mwnaa.us-east-2.rds.amazonaws.com:3306/TrainProjectGroup4","admin", "aw113014"); 
+				java.sql.Connection con = DriverManager.getConnection("[REDACTED]"); 
 				Statement stmt = con.createStatement();
 				
 				String strQuery = "SELECT sum(TotalFare) as revt, TransitLineName FROM Reservation JOIN TrainSchedule using (Train_ID, Departure) group by TransitLineName";
@@ -76,7 +76,7 @@
 			try {
 
 				Class.forName("com.mysql.jdbc.Driver"); 
-				java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://cs336db-wa.cfjq7n5mwnaa.us-east-2.rds.amazonaws.com:3306/TrainProjectGroup4","admin", "aw113014"); 
+				java.sql.Connection con = DriverManager.getConnection("[REDACTED]"); 
 				Statement stmt = con.createStatement();
 			
 

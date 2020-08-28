@@ -12,7 +12,7 @@ This determines if the user is a customer, customer rep, admin or does not exist
     Class.forName("com.mysql.jdbc.Driver");
     
     //connect to database instance
-    Connection con = DriverManager.getConnection("jdbc:mysql://cs336db-wa.cfjq7n5mwnaa.us-east-2.rds.amazonaws.com:3306/TrainProjectGroup4","admin", "aw113014");
+    Connection con = DriverManager.getConnection("[REDACTED]");
     Statement st = con.createStatement();
     ResultSet rs;
     

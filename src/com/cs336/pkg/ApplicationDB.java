@@ -13,7 +13,7 @@ public class ApplicationDB {
 	public Connection getConnection(){
 		
 		//Create a connection string
-		String connectionUrl = "jdbc:mysql://cs336db-wa.cfjq7n5mwnaa.us-east-2.rds.amazonaws.com:3306/TrainProjectGroup4";
+		String connectionUrl = "[REDACTED]";
 		Connection connection = null;
 		
 		try {
@@ -31,7 +31,7 @@ public class ApplicationDB {
 		}
 		try {
 			//Create a connection to your DB
-			connection = DriverManager.getConnection(connectionUrl,"admin", "aw113014");
+			connection = DriverManager.getConnection(connectionUrl,"[REDACTED]", "[REDACTED]");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
