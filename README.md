@@ -1,7 +1,7 @@
 # Readme.
 Created an online railway booking system using HTML for the user interface,
 MySQL for the database server, and Java, Javascript, and JDBC for connectivity between the user
-interface and database server. Website was deployed using TomCat.
+interface and database server. Website was deployed using TomCat. </br>
 <br />
 Note: Amazon Web Services login credentials and connection to the database have been redacted.<br />
 <br />
@@ -19,14 +19,13 @@ Features:<br />
  -sort by different criteria (by arrival time, departure time, fare)<br />
 <br />
 **III. Reservations**<br />
- -a customer should be able to make a reservation for a specific route (round-trip/one
+ -a customer can make a reservation for a specific route (round-trip/one
  way)<br />
  -get a discount in case of child/senior/disabled<br />
  -cancel existing reservation<br />
  -view current and past reservations with their details (separately)<br />
 <br />
 **IV. Admin functions**<br />
- -Admin (create an admin account ahead of time)<br />
 -add, edit and delete information for a customer representative<br />
  -obtain sales reports per month<br />
 -produce a list of reservations:<br />
